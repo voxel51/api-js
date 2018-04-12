@@ -1,4 +1,9 @@
 # Voxel51 JavaScript Client Library
+>
+> Copyright 2017-2018, Voxel51, LLC.
+>
+> David Hodgson, david@voxel51.com
+>
 
 This package defines a JavaScript client library for accessing the Voxel51
 Vision Services API.
