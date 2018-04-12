@@ -1,0 +1,25 @@
+{
+    "name": "@voxel51/javascript-client-library",
+    "description": "JavaScript client library for the Voxel51 Vision Services API",
+    "version": "1.0.0",
+    "author": "Voxel51, LLC",
+    "license": "BSD 4-clause",
+    "main": "lib.js",
+    "scripts": {
+        "test-verbose": "DEBUG=test mocha test/test.js --timeout=10000",
+        "test": "mocha test/test.js --timeout=10000",
+        "unit-test": "mocha test/*.spec.js --timeout=5000",
+        "unit-test-verbose": "DEBUG=test mocha test/*.spec.js --timeout=5000"
+    },
+    "dependencies": {
+        "request": "^2.83.0"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "debug": "^3.1.0",
+        "eslint": "^4.18.1",
+        "eslint-config-google": "^0.9.1",
+        "mocha": "^5.0.5",
+        "sinon": "^4.5.0"
+    }
+}

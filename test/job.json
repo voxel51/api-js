@@ -1,0 +1,13 @@
+{
+    "algorithm": "f6275458-b39b-4933-9dca-58565500eadb",
+    "inputs": {
+        "raw-video": {
+            "data-id": "aed4f66d-6340-4be6-a775-7e24ef5a1640"
+        }
+    },
+    "parameters" : {
+        "scale": 0.5,
+        "fps": 5
+    }
+}
+

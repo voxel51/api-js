@@ -1,0 +1,43 @@
+{
+    "info": {
+        "name": "video-formatter",
+        "version": "0.1.0",
+        "description": "A tool for resizing and sampling videos"
+    },
+    "inputs": [
+        {
+            "name": "raw-video",
+            "description": "The raw input video to process",
+            "type": "types.Video",
+            "required": true
+        }
+    ],
+    "outputs": [
+        {
+            "name": "sampled-frames",
+            "description": "A directory containing the sampled frames",
+            "type": "types.ImageSequence",
+            "filename": "sampled-frames/%05d.png"
+        }
+    ],
+    "parameters": [
+        {
+            "name": "size",
+            "description": "The output [width, height] of the sampled frames",
+            "type": "types.Array",
+            "required": false
+        },
+        {
+            "name": "scale",
+            "description": "A scaling factor to apply to the sampled frames",
+            "type": "types.Number",
+            "required": false
+        },
+        {
+            "name": "fps",
+            "description": "The sampling rate to use when sampling the video frames",
+            "type": "types.Number",
+            "required": false
+        }
+    ]
+}
