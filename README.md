@@ -12,11 +12,14 @@ This library is Promise-based and thus compatibile with standard
 `async/await`-based usage. It defines no callbacks, so JavaScript ES6+ or
 proper pollyfills are required.
 
-
 ## Installation
 
-> TODO: add npm installation instructions
+To install the necessary packages, move to the project's root directory and
+run:
 
+```shell
+npm install
+```
 
 ## Sign-up and Authentication
 
@@ -32,7 +35,6 @@ key of your token:
 ```shell
 export API_TOKEN="XXXXXXXXXXXX"
 ```
-
 
 ## Example Usage
 
@@ -78,7 +80,7 @@ List available algorithms:
 Download algorithm documentation:
 ```js
 (async function() {
-  let res = await api.getAlgorithmInfo('f6275458-b39b-4933-9dca-58565500eadb');
+  let res = await api.getAlgorithmDetails('f6275458-b39b-4933-9dca-58565500eadb');
 })();
 ```
 
@@ -103,7 +105,7 @@ Define a valid job request JSON file. For example:
 Upload a job request:
 ```js
 (async function() {
-  let res = await api.createJob('job.json', 'node-demo', 'false');
+  let res = await api.uploadJobRequest('job.json', 'node-demo', 'false');
   console.log(res.statusCode, res.body);
 })();
 ```
