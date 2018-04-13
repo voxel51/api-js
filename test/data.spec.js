@@ -76,14 +76,14 @@ describe('api.listData', function() {
   });
 });
 
-describe('api.getDataInfo', function() {
+describe('api.getDataDetails', function() {
   it('should be called with proper uri', function() {
     let dataId = '2039xjdosiDSK123';
     let expectedUri = '/data/' + dataId;
 
     this.request = sinon.spy(Request, 'get');
 
-    api.getDataInfo(dataId);
+    api.getDataDetails(dataId);
     expect(this.request.calledWith(expectedUri));
     Request.get.restore();
   });
@@ -94,7 +94,7 @@ describe('api.getDataInfo', function() {
 
     this.request = sinon.spy(Request, 'get');
 
-    api.getDataInfo(dataId);
+    api.getDataDetails(dataId);
     expect(this.request.calledWith(expectedUri));
     Request.get.restore();
   });
