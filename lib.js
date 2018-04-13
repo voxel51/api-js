@@ -1,8 +1,11 @@
 /*
- * Main client library module.
+ * Main client library module. Creates the client library
+ * object with all user-facing functions.
  *
- * Copyright 2018, Voxel51, LLC
+ * Copyright 2017-2018, Voxel51, LLC
  * voxel51.com
+ *
+ * David Hodgson, david@voxel51.com
 */
 
 'use strict';
@@ -15,6 +18,22 @@ let fs = require('fs');
 let ClientLibrary = Object.create(Config);
 
 // ALGORITHM ROUTES
+ClientLibrary.listAlgorithms = async function() {
+  try {
+    return await Request.get('/algo/list');
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
+ClientLibrary.getAlgorithmDoc = async function(algoId) {
+  try {
+    Request.req('/algo/' + algoId).pipe(process.stdout);
+  } catch (error) {
+    await Logger.error(error);
+  }
+};
 
 ClientLibrary.getDocsPage = async function() {
   try {
@@ -25,34 +44,7 @@ ClientLibrary.getDocsPage = async function() {
   }
 };
 
-ClientLibrary.listAlgorithms = async function() {
-  try {
-    return await Request.get('/algo/list');
-  } catch (error) {
-    await Logger.error(error);
-    throw error;
-  }
-};
-
-ClientLibrary.getAlgorithmInfo = async function(algoId) {
-  try {
-    Request.req('/algo/' + algoId).pipe(process.stdout);
-  } catch (error) {
-    await Logger.error(error);
-  }
-};
-
 // DATA ROUTES
-
-ClientLibrary.getDataPage = async function() {
-  try {
-    return await Request.get('/data');
-  } catch (error) {
-    await Logger.error(error);
-    throw error;
-  }
-};
-
 ClientLibrary.listData = async function() {
   try {
     return await Request.get('/data/list');
@@ -62,36 +54,25 @@ ClientLibrary.listData = async function() {
   }
 };
 
-ClientLibrary.getDataInfo = async function(dataId) {
+ClientLibrary.uploadData = async function(filePath) {
+  try {
+    let formData = {
+      file: fs.createReadStream(filePath),
+    };
+
+    return await Request.post({
+      uri: '/data',
+      formData: formData,
+    });
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
+ClientLibrary.getDataDetails = async function(dataId) {
   try {
     return await Request.get('/data/' + dataId);
-  } catch (error) {
-    await Logger.error(error);
-    throw error;
-  }
-};
-
-ClientLibrary.getDatasetInfo = async function(datasetName) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    await Logger.error(error);
-    throw error;
-  }
-};
-
-ClientLibrary.deleteData = async function(dataId) {
-  try {
-    return await Request.delete('/data/' + dataId);
-  } catch (error) {
-    await Logger.error(error);
-    throw error;
-  }
-};
-
-ClientLibrary.deleteDataset = async function(datasetName) {
-  try {
-    return 'Not yet implemented';
   } catch (error) {
     await Logger.error(error);
     throw error;
@@ -117,6 +98,43 @@ ClientLibrary.downloadData = async function(dataId, outputPath) {
   }
 };
 
+ClientLibrary.deleteData = async function(dataId) {
+  try {
+    return await Request.delete('/data/' + dataId);
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
+ClientLibrary.getDataPage = async function() {
+  try {
+    return await Request.get('/data');
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
+// DATASET ROUTES
+ClientLibrary.getDatasetInfo = async function(datasetName) {
+  try {
+    return 'Not yet implemented';
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
+ClientLibrary.deleteDataset = async function(datasetName) {
+  try {
+    return 'Not yet implemented';
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
 ClientLibrary.downloadDataset = async function(datasetName) {
   try {
     return 'Not yet implemented';
@@ -126,34 +144,17 @@ ClientLibrary.downloadDataset = async function(datasetName) {
   }
 };
 
-ClientLibrary.uploadData = async function(filePath) {
-  try {
-    let formData = {
-      file: fs.createReadStream(filePath),
-    };
-
-    return await Request.post({
-      uri: '/data',
-      formData: formData,
-    });
-  } catch (error) {
-    await Logger.error(error);
-    throw error;
-  }
-};
-
 // JOB ROUTES
-
-ClientLibrary.getJobsPage = async function() {
+ClientLibrary.listJobs = async function() {
   try {
-    return await Request.get('/job');
+    return await Request.get('/job/list');
   } catch (error) {
     await Logger.error(error);
     throw error;
   }
 };
 
-ClientLibrary.createJob = async function(
+ClientLibrary.uploadJobRequest = async function(
   jobJSONPath,
   jobName,
   autoStart=false) {
@@ -178,11 +179,18 @@ ClientLibrary.createJob = async function(
   }
 };
 
-ClientLibrary.listJobs = async function() {
+ClientLibrary.getJobDetails = async function(jobId) {
   try {
-    return await Request.get('/job/list');
+    return await Request.get('/job/' + jobId);
   } catch (error) {
-    await Logger.error(error);
+    throw error;
+  }
+};
+
+ClientLibrary.getJobRequest = async function(jobId) {
+  try {
+    Request.req('/job/' + jobId + '/request').pipe(process.stdout);
+  } catch (error) {
     throw error;
   }
 };
@@ -205,15 +213,7 @@ ClientLibrary.getJobStatus = async function(jobId) {
   }
 };
 
-ClientLibrary.getJobRequest = async function(jobId) {
-  try {
-    Request.req('/job/' + jobId + '/request').pipe(process.stdout);
-  } catch (error) {
-    throw error;
-  }
-};
-
-ClientLibrary.getJobOutput = async function(
+ClientLibrary.downloadJobOutput = async function(
   jobId,
   outputPath='output.zip') {
   try {
@@ -229,6 +229,15 @@ ClientLibrary.getJobOutput = async function(
     });
 
     Request.req('/job/' + jobId + '/output').pipe(stream);
+  } catch (error) {
+    await Logger.error(error);
+    throw error;
+  }
+};
+
+ClientLibrary.getJobsPage = async function() {
+  try {
+    return await Request.get('/job');
   } catch (error) {
     await Logger.error(error);
     throw error;
