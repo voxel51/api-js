@@ -21,7 +21,6 @@ let fs = require('fs');
 let ClientLibrary = Object.create(config);
 
 // ALGORITHM ROUTES
-
 /**
  * Returns a list of the available algorithms, including their name and
  * unique ID.
@@ -53,7 +52,6 @@ ClientLibrary.listAlgorithms = async function() {
  * @async
  * @function getAlgorithmDoc
  * @param {string} algoId - Algorithm's unique ID
- * @return {Response} HTTP response stream of JSON algorithm documentation
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getAlgorithmDoc = async function(algoId) {
@@ -172,6 +170,7 @@ ClientLibrary.deleteData = async function(dataId) {
  *
  * @async
  * @function listDatasets
+ * @return {Response} HTTP response with JSON dataset list
  * @todo Not yet implemented
  */
 ClientLibrary.listDatasets = async function() {
@@ -187,6 +186,8 @@ ClientLibrary.listDatasets = async function() {
  *
  * @async
  * @function createDataset
+ * @param {string} datasetName - Name of new dataset
+ * @return {Response} HTTP response with JSON of new dataset
  * @todo Not yet implemented
  */
 ClientLibrary.createDataset = async function(datasetName) {
@@ -202,9 +203,12 @@ ClientLibrary.createDataset = async function(datasetName) {
  *
  * @async
  * @function addDataToDataset
+ * @param {string} dataId - The data's unique ID
+ * @param {string} datasetId - the dataset's unique ID
+ * @return {Response} HTTP response with JSON list of data in dataset
  * @todo Not yet implemented
  */
-ClientLibrary.addDataToDataset(dataId, datasetId) {
+ClientLibrary.addDataToDataset = async function(dataId, datasetId) {
   try {
     return 'Not yet implemented';
   } catch (error) {
@@ -217,9 +221,17 @@ ClientLibrary.addDataToDataset(dataId, datasetId) {
  *
  * @async
  * @function removeDataFromDataset
+ * @param {string} dataId - The data's unique ID
+ * @param {string} datasetId - The dataset's unique ID
+ * @param {boolean} deleteFiles - Whether to delete the specified data file
+ * from cloud storage. Default is false
+ * @return {Response} HTTP response with JSON of updated dataset
  * @todo Not yet implemented
  */
-ClientLibrary.removeDataFromDataset(dataId, datasetId, deleteFiles=false) {
+ClientLibrary.removeDataFromDataset = async function(
+  dataId,
+  datasetId,
+  deleteFiles=false) {
   try {
     return 'Not yet implemented';
   } catch (error) {
@@ -232,6 +244,8 @@ ClientLibrary.removeDataFromDataset(dataId, datasetId, deleteFiles=false) {
  *
  * @async
  * @function getDatasetDetails
+ * @param {string} datasetId - The dataset's unique ID
+ * @return {Response} HTTP response with JSON dataset metadata
  * @todo Not yet implemented
  */
 ClientLibrary.getDatasetDetails = async function(datasetId) {
@@ -247,6 +261,8 @@ ClientLibrary.getDatasetDetails = async function(datasetId) {
  *
  * @async
  * @function downloadDataset
+ * @param {string} datasetName = The dataset's unique ID
+ * @return {Response} HTTP response stream
  * @todo Not yet implemented
  */
 ClientLibrary.downloadDataset = async function(datasetName) {
@@ -262,6 +278,8 @@ ClientLibrary.downloadDataset = async function(datasetName) {
  *
  * @async
  * @function deleteDataset
+ * @param {string} datasetName - The dataset's unique ID
+ * @return {Response} HTTP response with 204 status code
  * @todo Not yet implemented
  */
 ClientLibrary.deleteDataset = async function(datasetName) {
@@ -273,6 +291,14 @@ ClientLibrary.deleteDataset = async function(datasetName) {
 };
 
 // JOB ROUTES
+/**
+ * Returns a list of all jobs in the cloud.
+ *
+ * @async
+ * @function listJobs
+ * @return {Response} HTTP response with JSON job list
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.listJobs = async function() {
   try {
     return await request.get('/job/list');
@@ -281,6 +307,18 @@ ClientLibrary.listJobs = async function() {
   }
 };
 
+/**
+ * Uploads a job request to the cloud.
+ *
+ * @async
+ * @function uploadJobRequest
+ * @param {string} jobJSONPath - Path to the job JSON request file
+ * @param {string} jobName - Name for the new job
+ * @param {boolean} autoStart - Determines if job will be automatically started.
+ * Default value: false
+ * @return {Response} HTTP response with JSON job upload success
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.uploadJobRequest = async function(
   jobJSONPath,
   jobName,
@@ -305,6 +343,15 @@ ClientLibrary.uploadJobRequest = async function(
   }
 };
 
+/**
+ * Gets details about the job with the given ID.
+ *
+ * @async
+ * @function getJobDetails
+ * @param {string} jobId - The job's unique ID
+ * @return {Response} HTTP response with JSON job metadata
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.getJobDetails = async function(jobId) {
   try {
     return await request.get('/job/' + jobId);
@@ -313,6 +360,14 @@ ClientLibrary.getJobDetails = async function(jobId) {
   }
 };
 
+/**
+ * Gets and streams the job request for the job with the given ID.
+ *
+ * @async
+ * @function getJobRequest
+ * @param {string} jobId - The job's unique ID
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.getJobRequest = async function(jobId) {
   try {
     request.req('/job/' + jobId + '/request').pipe(process.stdout);
@@ -321,6 +376,15 @@ ClientLibrary.getJobRequest = async function(jobId) {
   }
 };
 
+/**
+ * Starts the job with the given ID.
+ *
+ * @async
+ * @function startJob
+ * @param {string} jobId - The job's unique ID
+ * @return {Response} HTTP response with updated JSON of job status
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.startJob = async function(jobId) {
   try {
     return await request.put('/job/' + jobId + '/start');
@@ -329,6 +393,14 @@ ClientLibrary.startJob = async function(jobId) {
   }
 };
 
+/**
+ * Gets and streams the status of the job with the given ID.
+ *
+ * @async
+ * @function getJobStatus
+ * @param {string} jobId - The job's unique ID
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.getJobStatus = async function(jobId) {
   try {
     request.req('/job/' + jobId + '/status').pipe(process.stdout);
@@ -337,6 +409,16 @@ ClientLibrary.getJobStatus = async function(jobId) {
   }
 };
 
+/**
+ * Downloads the output of the job with the given ID.
+ *
+ * @async
+ * @function downloadJobOutput
+ * @param {string} jobId - The job's unique ID
+ * @param {string} outputPath - Output path at which to write.
+ * Default is output.zip
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.downloadJobOutput = async function(
   jobId,
   outputPath='output.zip') {
@@ -353,14 +435,6 @@ ClientLibrary.downloadJobOutput = async function(
     });
 
     request.req('/job/' + jobId + '/output').pipe(stream);
-  } catch (error) {
-    throw error;
-  }
-};
-
-ClientLibrary.getJobsPage = async function() {
-  try {
-    return await request.get('/job');
   } catch (error) {
     throw error;
   }
