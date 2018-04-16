@@ -8,10 +8,7 @@
  * David Hodgson, david@voxel51.com
 */
 
-/**
- * Voxel51 Node Client Library
- * @module @voxel51/lib
- */
+
 'use strict';
 
 let request = require('./requests.js');
@@ -20,7 +17,10 @@ let fs = require('fs');
 
 let ClientLibrary = Object.create(config);
 
-// ALGORITHM ROUTES
+/**
+ * @module @voxel51/algorithm
+ */
+
 /**
  * Returns a list of the available algorithms, including their name and
  * unique ID.
@@ -63,6 +63,9 @@ ClientLibrary.getAlgorithmDoc = async function(algoId) {
 };
 
 // DATA ROUTES
+
+/** @module @voxel51/data **/
+
 /**
  * Returns a list of all user data uploaded to cloud storage.
  *
@@ -291,6 +294,9 @@ ClientLibrary.deleteDataset = async function(datasetName) {
 };
 
 // JOB ROUTES
+
+/** @module @voxel51/job **/
+
 /**
  * Returns a list of all jobs in the cloud.
  *
