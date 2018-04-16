@@ -8,6 +8,10 @@
  * David Hodgson, david@voxel51.com
 */
 
+/**
+ * Voxel51 Node Client Library
+ * @module @voxel51/lib
+ */
 'use strict';
 
 let request = require('./requests.js');
@@ -22,9 +26,17 @@ let ClientLibrary = Object.create(config);
  * Returns a list of the available algorithms, including their name and
  * unique ID.
  *
+ * @example
+ * // assuming api is instance of ClientLibrary()
+ * api.listAlgorithms().then(function(result) {
+ *   console.log(result.body);
+ * }).catch(function(error) {
+ *   console.error(error);
+ * });
+ *
  * @async
  * @function listAlgorithms
- * @return {Response} HTTP response with JSON algorithm list on res.body
+ * @return {Response} HTTP response with JSON algorithm list
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.listAlgorithms = async function() {
@@ -52,15 +64,15 @@ ClientLibrary.getAlgorithmDoc = async function(algoId) {
   }
 };
 
-ClientLibrary.getDocsPage = async function() {
-  try {
-    return await request.get('/algo');
-  } catch (error) {
-    throw error;
-  }
-};
-
 // DATA ROUTES
+/**
+ * Returns a list of all user data uploaded to cloud storage.
+ *
+ * @async
+ * @function listData
+ * @return {Response} HTTP response with JSON data list
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.listData = async function() {
   try {
     return await request.get('/data/list');
@@ -69,6 +81,15 @@ ClientLibrary.listData = async function() {
   }
 };
 
+/**
+ * Uploads data to cloud storage.
+ *
+ * @async
+ * @function uploadData
+ * @param {string} filePath - Path to data file
+ * @return {Response} HTTP response with JSON metadata
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.uploadData = async function(filePath) {
   try {
     let formData = {
@@ -84,6 +105,15 @@ ClientLibrary.uploadData = async function(filePath) {
   }
 };
 
+/**
+ * Gets details about the data with the given ID.
+ *
+ * @async
+ * @function getDataDetails
+ * @param {string} dataId - The data's unique ID
+ * @return {Response} HTTP response with the data's JSON metadata
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.getDataDetails = async function(dataId) {
   try {
     return await request.get('/data/' + dataId);
@@ -92,6 +122,15 @@ ClientLibrary.getDataDetails = async function(dataId) {
   }
 };
 
+/**
+ * Downloads the data with the given ID.
+ *
+ * @async
+ * @function downloadData
+ * @param {string} dataId - The data's unique ID
+ * @param {string} outputPath - Optional output path at which to write the data
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.downloadData = async function(dataId, outputPath) {
   try {
     if (!outputPath) {
@@ -110,6 +149,15 @@ ClientLibrary.downloadData = async function(dataId, outputPath) {
   }
 };
 
+/**
+ * Deletes the data with the given ID from the cloud.
+ *
+ * @async
+ * @function deleteData
+ * @param {string} dataId - The data's unique ID
+ * @return {Response} HTTP response with the 204 status code
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.deleteData = async function(dataId) {
   try {
     return await request.delete('/data/' + dataId);
@@ -118,16 +166,15 @@ ClientLibrary.deleteData = async function(dataId) {
   }
 };
 
-ClientLibrary.getDataPage = async function() {
-  try {
-    return await request.get('/data');
-  } catch (error) {
-    throw error;
-  }
-};
-
 // DATASET ROUTES
-ClientLibrary.getDatasetInfo = async function(datasetName) {
+/**
+ * Returns a list of all datasets in cloud storage.
+ *
+ * @async
+ * @function listDatasets
+ * @todo Not yet implemented
+ */
+ClientLibrary.listDatasets = async function() {
   try {
     return 'Not yet implemented';
   } catch (error) {
@@ -135,7 +182,14 @@ ClientLibrary.getDatasetInfo = async function(datasetName) {
   }
 };
 
-ClientLibrary.deleteDataset = async function(datasetName) {
+/**
+ * Creates a new dataset in the cloud with the given name.
+ *
+ * @async
+ * @function createDataset
+ * @todo Not yet implemented
+ */
+ClientLibrary.createDataset = async function(datasetName) {
   try {
     return 'Not yet implemented';
   } catch (error) {
@@ -143,7 +197,74 @@ ClientLibrary.deleteDataset = async function(datasetName) {
   }
 };
 
+/**
+ * Adds the data with the given ID to the dataset with the given ID.
+ *
+ * @async
+ * @function addDataToDataset
+ * @todo Not yet implemented
+ */
+ClientLibrary.addDataToDataset(dataId, datasetId) {
+  try {
+    return 'Not yet implemented';
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * Removes the data with the given ID from the dataset with the given ID.
+ *
+ * @async
+ * @function removeDataFromDataset
+ * @todo Not yet implemented
+ */
+ClientLibrary.removeDataFromDataset(dataId, datasetId, deleteFiles=false) {
+  try {
+    return 'Not yet implemented';
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * Gets details about the dataset with the given ID.
+ *
+ * @async
+ * @function getDatasetDetails
+ * @todo Not yet implemented
+ */
+ClientLibrary.getDatasetDetails = async function(datasetId) {
+  try {
+    return 'Not yet implemented';
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * Downloads the dataset with the given ID as a zip file.
+ *
+ * @async
+ * @function downloadDataset
+ * @todo Not yet implemented
+ */
 ClientLibrary.downloadDataset = async function(datasetName) {
+  try {
+    return 'Not yet implemented';
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * Deletes the dataset with the given ID.
+ *
+ * @async
+ * @function deleteDataset
+ * @todo Not yet implemented
+ */
+ClientLibrary.deleteDataset = async function(datasetName) {
   try {
     return 'Not yet implemented';
   } catch (error) {
