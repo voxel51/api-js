@@ -10,36 +10,52 @@
 
 'use strict';
 
-let Logger = require('./logger.js');
-let Request = require('./requests.js');
-let Config = require('./config.js');
+let request = require('./requests.js');
+let config = require('./config.js');
 let fs = require('fs');
 
-let ClientLibrary = Object.create(Config);
+let ClientLibrary = Object.create(config);
 
 // ALGORITHM ROUTES
+
+/**
+ * Returns a list of the available algorithms, including their name and
+ * unique ID.
+ *
+ * @async
+ * @function listAlgorithms
+ * @return {Response} HTTP response with JSON algorithm list on res.body
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.listAlgorithms = async function() {
   try {
-    return await Request.get('/algo/list');
+    return await request.get('/algo/list');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
+/**
+ * Gets and streams the algorithm documentation with given ID.
+ *
+ * @async
+ * @function getAlgorithmDoc
+ * @param {string} algoId - Algorithm's unique ID
+ * @return {Response} HTTP response stream of JSON algorithm documentation
+ * @throws {Error} API error if the request was unsuccessful
+ */
 ClientLibrary.getAlgorithmDoc = async function(algoId) {
   try {
-    Request.req('/algo/' + algoId).pipe(process.stdout);
+    request.req('/algo/' + algoId).pipe(process.stdout);
   } catch (error) {
-    await Logger.error(error);
+    throw error;
   }
 };
 
 ClientLibrary.getDocsPage = async function() {
   try {
-    return await Request.get('/algo');
+    return await request.get('/algo');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -47,9 +63,8 @@ ClientLibrary.getDocsPage = async function() {
 // DATA ROUTES
 ClientLibrary.listData = async function() {
   try {
-    return await Request.get('/data/list');
+    return await request.get('/data/list');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -60,21 +75,19 @@ ClientLibrary.uploadData = async function(filePath) {
       file: fs.createReadStream(filePath),
     };
 
-    return await Request.post({
+    return await request.post({
       uri: '/data',
       formData: formData,
     });
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
 ClientLibrary.getDataDetails = async function(dataId) {
   try {
-    return await Request.get('/data/' + dataId);
+    return await request.get('/data/' + dataId);
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -91,27 +104,24 @@ ClientLibrary.downloadData = async function(dataId, outputPath) {
     stream.on('end', function() {
       return;
     });
-    Request.req('/data/' + dataId + '/download').pipe(stream);
+    request.req('/data/' + dataId + '/download').pipe(stream);
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
 ClientLibrary.deleteData = async function(dataId) {
   try {
-    return await Request.delete('/data/' + dataId);
+    return await request.delete('/data/' + dataId);
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
 ClientLibrary.getDataPage = async function() {
   try {
-    return await Request.get('/data');
+    return await request.get('/data');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -121,7 +131,6 @@ ClientLibrary.getDatasetInfo = async function(datasetName) {
   try {
     return 'Not yet implemented';
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -130,7 +139,6 @@ ClientLibrary.deleteDataset = async function(datasetName) {
   try {
     return 'Not yet implemented';
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -139,7 +147,6 @@ ClientLibrary.downloadDataset = async function(datasetName) {
   try {
     return 'Not yet implemented';
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -147,9 +154,8 @@ ClientLibrary.downloadDataset = async function(datasetName) {
 // JOB ROUTES
 ClientLibrary.listJobs = async function() {
   try {
-    return await Request.get('/job/list');
+    return await request.get('/job/list');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -169,19 +175,18 @@ ClientLibrary.uploadJobRequest = async function(
       'file': fs.createReadStream(jobJSONPath),
     };
 
-    return await Request.post({
+    return await request.post({
       uri: '/job',
       formData: formData,
     });
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
 ClientLibrary.getJobDetails = async function(jobId) {
   try {
-    return await Request.get('/job/' + jobId);
+    return await request.get('/job/' + jobId);
   } catch (error) {
     throw error;
   }
@@ -189,7 +194,7 @@ ClientLibrary.getJobDetails = async function(jobId) {
 
 ClientLibrary.getJobRequest = async function(jobId) {
   try {
-    Request.req('/job/' + jobId + '/request').pipe(process.stdout);
+    request.req('/job/' + jobId + '/request').pipe(process.stdout);
   } catch (error) {
     throw error;
   }
@@ -197,18 +202,16 @@ ClientLibrary.getJobRequest = async function(jobId) {
 
 ClientLibrary.startJob = async function(jobId) {
   try {
-    return await Request.put('/job/' + jobId + '/start');
+    return await request.put('/job/' + jobId + '/start');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
 ClientLibrary.getJobStatus = async function(jobId) {
   try {
-    Request.req('/job/' + jobId + '/status').pipe(process.stdout);
+    request.req('/job/' + jobId + '/status').pipe(process.stdout);
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
@@ -228,18 +231,16 @@ ClientLibrary.downloadJobOutput = async function(
         return;
     });
 
-    Request.req('/job/' + jobId + '/output').pipe(stream);
+    request.req('/job/' + jobId + '/output').pipe(stream);
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };
 
 ClientLibrary.getJobsPage = async function() {
   try {
-    return await Request.get('/job');
+    return await request.get('/job');
   } catch (error) {
-    await Logger.error(error);
     throw error;
   }
 };

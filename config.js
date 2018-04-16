@@ -10,13 +10,13 @@
 
 let Authorization = require('./auth.js');
 
-let Config = {
+let config = {
   TOKEN: Authorization.setToken() || process.env.API_TOKEN,
   URI: 'https://api.voxel51.com/v1/',
 };
 
-Config.HEADER = {
-  'Authorization': 'Bearer ' + Config.TOKEN,
+config.HEADER = {
+  'Authorization': 'Bearer ' + config.TOKEN,
 };
 
-module.exports = Config;
+module.exports = config;
