@@ -19,12 +19,11 @@ exports.baseRequest = baseRequest;
 
 exports.get = function(options) {
   return new Promise(function(resolve, reject) {
-    baseRequest.get(options, function(err, rsp, body) {
+    baseRequest.get(options, async function(err, rsp, body) {
       if (err) {
         reject(err);
       } else {
-        rsp.body = body;
-        resolve(rsp);
+        resolve(await validate(rsp, body));
       }
     });
   });
@@ -32,12 +31,11 @@ exports.get = function(options) {
 
 exports.post = function(options) {
   return new Promise(function(resolve, reject) {
-    baseRequest.post(options, function(err, rsp, body) {
+    baseRequest.post(options, async function(err, rsp, body) {
       if (err) {
         reject(err);
       } else {
-        rsp.body = body;
-        resolve(rsp);
+        resolve(await validate(rsp, body));
       }
     });
   });
@@ -45,12 +43,11 @@ exports.post = function(options) {
 
 exports.delete = function(options) {
   return new Promise(function(resolve, reject) {
-    baseRequest.delete(options, function(err, rsp, body) {
+    baseRequest.delete(options, async function(err, rsp, body) {
       if (err) {
         reject(err);
       } else {
-        rsp.body = body;
-        resolve(rsp);
+        resolve(await validate(rsp, body));
       }
     });
   });
@@ -58,14 +55,26 @@ exports.delete = function(options) {
 
 exports.put = function(options) {
   return new Promise(function(resolve, reject) {
-    baseRequest.put(options, function(err, rsp, body) {
+    baseRequest.put(options, async function(err, rsp, body) {
       if (err) {
         reject(err);
       } else {
-        rsp.body = body;
-        resolve(rsp);
+        resolve(await validate(rsp, body));
       }
     });
+  });
+};
+
+let validate = exports.validate = function validate(rsp, body) {
+  return new Promise(function(resolve, reject) {
+    if (rsp.statusCode > 299) {
+      let error = new Error(body);
+      error.code = rsp.statusCode;
+      throw error;
+      reject(err);
+    } else {
+      resolve(body);
+    }
   });
 };
 
