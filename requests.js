@@ -15,7 +15,6 @@ let baseRequest = request.defaults({
   baseUrl: CONFIG.URI,
   headers: CONFIG.HEADER,
 });
-exports.baseRequest = baseRequest;
 
 exports.get = function(options) {
   return new Promise(function(resolve, reject) {
