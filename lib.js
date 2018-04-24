@@ -39,11 +39,7 @@ let ClientLibrary = Object.create(config);
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.listAlgorithms = async function() {
-  try {
-    return await request.get('/algo/list');
-  } catch (error) {
-    throw error;
-  }
+  return await request.get('/algo/list');
 };
 
 /**
@@ -55,11 +51,7 @@ ClientLibrary.listAlgorithms = async function() {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getAlgorithmDoc = async function(algoId) {
-  try {
-    request.req('/algo/' + algoId).pipe(process.stdout);
-  } catch (error) {
-    throw error;
-  }
+  request.req('/algo/' + algoId).pipe(process.stdout);
 };
 
 // DATA ROUTES
@@ -75,11 +67,7 @@ ClientLibrary.getAlgorithmDoc = async function(algoId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.listData = async function() {
-  try {
-    return await request.get('/data/list');
-  } catch (error) {
-    throw error;
-  }
+  return await request.get('/data/list');
 };
 
 /**
@@ -92,18 +80,14 @@ ClientLibrary.listData = async function() {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.uploadData = async function(filePath) {
-  try {
-    let formData = {
-      file: fs.createReadStream(filePath),
-    };
+  let formData = {
+    file: fs.createReadStream(filePath),
+  };
 
-    return await request.post({
-      uri: '/data',
-      formData: formData,
-    });
-  } catch (error) {
-    throw error;
-  }
+  return await request.post({
+    uri: '/data',
+    formData: formData,
+  });
 };
 
 /**
@@ -116,11 +100,7 @@ ClientLibrary.uploadData = async function(filePath) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getDataDetails = async function(dataId) {
-  try {
-    return await request.get('/data/' + dataId);
-  } catch (error) {
-    throw error;
-  }
+  return await request.get('/data/' + dataId);
 };
 
 /**
@@ -133,21 +113,17 @@ ClientLibrary.getDataDetails = async function(dataId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.downloadData = async function(dataId, outputPath) {
-  try {
-    if (!outputPath) {
-      throw new Error('Output path must be specified');
-    }
-    let stream = fs.createWriteStream(outputPath);
-    stream.on('error', function(err) {
-      throw err;
-    });
-    stream.on('end', function() {
-      return;
-    });
-    request.req('/data/' + dataId + '/download').pipe(stream);
-  } catch (error) {
-    throw error;
+  if (!outputPath) {
+    throw new Error('Output path must be specified');
   }
+  let stream = fs.createWriteStream(outputPath);
+  stream.on('error', function(err) {
+    throw err;
+  });
+  stream.on('end', function() {
+    return;
+  });
+  request.req('/data/' + dataId + '/download').pipe(stream);
 };
 
 /**
@@ -160,11 +136,7 @@ ClientLibrary.downloadData = async function(dataId, outputPath) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.deleteData = async function(dataId) {
-  try {
-    return await request.delete('/data/' + dataId);
-  } catch (error) {
-    throw error;
-  }
+  return await request.delete('/data/' + dataId);
 };
 
 // DATASET ROUTES
@@ -177,11 +149,7 @@ ClientLibrary.deleteData = async function(dataId) {
  * @todo Not yet implemented
  */
 ClientLibrary.listDatasets = async function() {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 /**
@@ -194,11 +162,7 @@ ClientLibrary.listDatasets = async function() {
  * @todo Not yet implemented
  */
 ClientLibrary.createDataset = async function(datasetName) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 /**
@@ -212,11 +176,7 @@ ClientLibrary.createDataset = async function(datasetName) {
  * @todo Not yet implemented
  */
 ClientLibrary.addDataToDataset = async function(dataId, datasetId) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 /**
@@ -235,11 +195,7 @@ ClientLibrary.removeDataFromDataset = async function(
   dataId,
   datasetId,
   deleteFiles=false) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 /**
@@ -252,11 +208,7 @@ ClientLibrary.removeDataFromDataset = async function(
  * @todo Not yet implemented
  */
 ClientLibrary.getDatasetDetails = async function(datasetId) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 /**
@@ -269,11 +221,7 @@ ClientLibrary.getDatasetDetails = async function(datasetId) {
  * @todo Not yet implemented
  */
 ClientLibrary.downloadDataset = async function(datasetName) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 /**
@@ -286,11 +234,7 @@ ClientLibrary.downloadDataset = async function(datasetName) {
  * @todo Not yet implemented
  */
 ClientLibrary.deleteDataset = async function(datasetName) {
-  try {
-    return 'Not yet implemented';
-  } catch (error) {
-    throw error;
-  }
+  throw new Error('Not yet implemented');
 };
 
 // JOB ROUTES
@@ -306,11 +250,7 @@ ClientLibrary.deleteDataset = async function(datasetName) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.listJobs = async function() {
-  try {
-    return await request.get('/job/list');
-  } catch (error) {
-    throw error;
-  }
+  return await request.get('/job/list');
 };
 
 /**
@@ -329,24 +269,20 @@ ClientLibrary.uploadJobRequest = async function(
   jobJSONPath,
   jobName,
   autoStart=false) {
-  try {
-    if (!jobName) {
-      throw new Error('Job name must be specified');
-    }
-
-    let formData = {
-      'job_name': jobName.toString(),
-      'auto_start': autoStart.toString(),
-      'file': fs.createReadStream(jobJSONPath),
-    };
-
-    return await request.post({
-      uri: '/job',
-      formData: formData,
-    });
-  } catch (error) {
-    throw error;
+  if (!jobName) {
+    throw new Error('Job name must be specified');
   }
+
+  let formData = {
+    'job_name': jobName.toString(),
+    'auto_start': autoStart.toString(),
+    'file': fs.createReadStream(jobJSONPath),
+  };
+
+  return await request.post({
+    uri: '/job',
+    formData: formData,
+  });
 };
 
 /**
@@ -359,11 +295,7 @@ ClientLibrary.uploadJobRequest = async function(
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getJobDetails = async function(jobId) {
-  try {
-    return await request.get('/job/' + jobId);
-  } catch (error) {
-    throw error;
-  }
+  return await request.get('/job/' + jobId);
 };
 
 /**
@@ -375,11 +307,7 @@ ClientLibrary.getJobDetails = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getJobRequest = async function(jobId) {
-  try {
-    request.req('/job/' + jobId + '/request').pipe(process.stdout);
-  } catch (error) {
-    throw error;
-  }
+  request.req('/job/' + jobId + '/request').pipe(process.stdout);
 };
 
 /**
@@ -392,11 +320,7 @@ ClientLibrary.getJobRequest = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.startJob = async function(jobId) {
-  try {
-    return await request.put('/job/' + jobId + '/start');
-  } catch (error) {
-    throw error;
-  }
+  return await request.put('/job/' + jobId + '/start');
 };
 
 /**
@@ -408,11 +332,7 @@ ClientLibrary.startJob = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getJobStatus = async function(jobId) {
-  try {
-    request.req('/job/' + jobId + '/status').pipe(process.stdout);
-  } catch (error) {
-    throw error;
-  }
+  request.req('/job/' + jobId + '/status').pipe(process.stdout);
 };
 
 /**
@@ -428,22 +348,18 @@ ClientLibrary.getJobStatus = async function(jobId) {
 ClientLibrary.downloadJobOutput = async function(
   jobId,
   outputPath='output.zip') {
-  try {
-    if (!(typeof outputPath === 'string')) {
-      throw new Error('Path must be valid string');
-    }
-    let stream = fs.createWriteStream(outputPath);
-    stream.on('error', function(error) {
-        throw error;
-    });
-    stream.on('end', function() {
-        return;
-    });
-
-    request.req('/job/' + jobId + '/output').pipe(stream);
-  } catch (error) {
-    throw error;
+  if (!(typeof outputPath === 'string')) {
+    throw new Error('Path must be valid string');
   }
+  let stream = fs.createWriteStream(outputPath);
+  stream.on('error', function(error) {
+      throw error;
+  });
+  stream.on('end', function() {
+      return;
+  });
+
+  request.req('/job/' + jobId + '/output').pipe(stream);
 };
 
 module.exports = ClientLibrary;
