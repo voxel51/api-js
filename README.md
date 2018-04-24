@@ -154,3 +154,20 @@ api.uploadData('/path/to/video.mp4').then(function(res) {
 It is strongly recommended to wrap any `async/await` calls with `try/catch`
 blocks to ensure all exceptions and errors are captured. These were omitted
 from the examples above for brevity.
+
+## Generating Documentation
+
+The node client library uses `JSDOC` docstrings to autogenerate some HTML
+documentation. Running the `generate_docs.bash` script will re-generate the
+docs. To do so manually, run
+
+```shell
+jsdoc -c conf.json
+```
+
+The landing page of the docs is located in `./docs/index.html`. The landing
+page currently is blank, but can be altered if desired. 
+
+Additional configuration options are available. See
+[JSDoc](https://github.com/jsdoc3/jsdoc) and
+[docstrap](https://github.com/docstrap/docstrap) for more information.

@@ -14,18 +14,15 @@
 usage() {
     echo "Usage:  bash $0 [-h] [-p]
 -h      Display this help message.
--p      Generate documentation for private API methods.
 "
 }
 
 
 # Parse flags
 SHOW_HELP=false
-PRIVATE_DOCS=false
 while getopts "hp" FLAG; do
     case $FLAG in
         h) SHOW_HELP=true ;;
-        p) PRIVATE_DOCS=true ;;
         *) SHOW_HELP=true ;;
     esac
 done
@@ -33,7 +30,5 @@ done
 
 
 echo "**** Generating API documentation"
-mkdir temp/
-cp lib.js temp/
-apidoc -i temp/ -o docs/ --private $PRIVATE_DOCS
+./node_modules/.bin/jsdoc -c conf.json
 echo "**** API documentation complete"
