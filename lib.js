@@ -15,7 +15,7 @@ let request = require('./requests.js');
 let config = require('./config.js');
 let fs = require('fs');
 
-let ClientLibrary = Object.create(config);
+let API = Object.create(config);
 
 // ALGORITHM ROUTES
 // @module @voxel51/algorithm
@@ -29,7 +29,7 @@ let ClientLibrary = Object.create(config);
  * @return {Response} HTTP response with JSON algorithm list
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.listAlgorithms = async function() {
+API.listAlgorithms = async function() {
   return await request.get('/algo/list');
 };
 
@@ -41,7 +41,7 @@ ClientLibrary.listAlgorithms = async function() {
  * @param {string} algoId - Algorithm's unique ID
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.getAlgorithmDoc = async function(algoId) {
+API.getAlgorithmDoc = async function(algoId) {
   request.base('/algo/' + algoId).pipe(process.stdout);
 };
 
@@ -56,7 +56,7 @@ ClientLibrary.getAlgorithmDoc = async function(algoId) {
  * @return {Response} HTTP response with JSON data list
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.listData = async function() {
+API.listData = async function() {
   return await request.get('/data/list');
 };
 
@@ -69,7 +69,7 @@ ClientLibrary.listData = async function() {
  * @return {Response} HTTP response with JSON metadata
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.uploadData = async function(filePath) {
+API.uploadData = async function(filePath) {
   let formData = {
     file: fs.createReadStream(filePath),
   };
@@ -89,7 +89,7 @@ ClientLibrary.uploadData = async function(filePath) {
  * @return {Response} HTTP response with the data's JSON metadata
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.getDataDetails = async function(dataId) {
+API.getDataDetails = async function(dataId) {
   return await request.get('/data/' + dataId);
 };
 
@@ -102,7 +102,7 @@ ClientLibrary.getDataDetails = async function(dataId) {
  * @param {string} outputPath - Optional output path at which to write the data
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.downloadData = async function(dataId, outputPath) {
+API.downloadData = async function(dataId, outputPath) {
   if (!outputPath) {
     throw new Error('Output path must be specified');
   }
@@ -125,7 +125,7 @@ ClientLibrary.downloadData = async function(dataId, outputPath) {
  * @return {Response} HTTP response with the 204 status code
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.deleteData = async function(dataId) {
+API.deleteData = async function(dataId) {
   return await request.delete('/data/' + dataId);
 };
 
@@ -138,7 +138,7 @@ ClientLibrary.deleteData = async function(dataId) {
  * @return {Response} HTTP response with JSON dataset list
  * @todo Not yet implemented
  */
-ClientLibrary.listDatasets = async function() {
+API.listDatasets = async function() {
   throw new Error('Not yet implemented');
 };
 
@@ -151,7 +151,7 @@ ClientLibrary.listDatasets = async function() {
  * @return {Response} HTTP response with JSON of new dataset
  * @todo Not yet implemented
  */
-ClientLibrary.createDataset = async function(datasetName) {
+API.createDataset = async function(datasetName) {
   throw new Error('Not yet implemented');
 };
 
@@ -165,7 +165,7 @@ ClientLibrary.createDataset = async function(datasetName) {
  * @return {Response} HTTP response with JSON list of data in dataset
  * @todo Not yet implemented
  */
-ClientLibrary.addDataToDataset = async function(dataId, datasetId) {
+API.addDataToDataset = async function(dataId, datasetId) {
   throw new Error('Not yet implemented');
 };
 
@@ -181,7 +181,7 @@ ClientLibrary.addDataToDataset = async function(dataId, datasetId) {
  * @return {Response} HTTP response with JSON of updated dataset
  * @todo Not yet implemented
  */
-ClientLibrary.removeDataFromDataset = async function(
+API.removeDataFromDataset = async function(
   dataId,
   datasetId,
   deleteFiles=false) {
@@ -197,7 +197,7 @@ ClientLibrary.removeDataFromDataset = async function(
  * @return {Response} HTTP response with JSON dataset metadata
  * @todo Not yet implemented
  */
-ClientLibrary.getDatasetDetails = async function(datasetId) {
+API.getDatasetDetails = async function(datasetId) {
   throw new Error('Not yet implemented');
 };
 
@@ -210,7 +210,7 @@ ClientLibrary.getDatasetDetails = async function(datasetId) {
  * @return {Response} HTTP response stream
  * @todo Not yet implemented
  */
-ClientLibrary.downloadDataset = async function(datasetName) {
+API.downloadDataset = async function(datasetName) {
   throw new Error('Not yet implemented');
 };
 
@@ -223,7 +223,7 @@ ClientLibrary.downloadDataset = async function(datasetName) {
  * @return {Response} HTTP response with 204 status code
  * @todo Not yet implemented
  */
-ClientLibrary.deleteDataset = async function(datasetName) {
+API.deleteDataset = async function(datasetName) {
   throw new Error('Not yet implemented');
 };
 
@@ -238,7 +238,7 @@ ClientLibrary.deleteDataset = async function(datasetName) {
  * @return {Response} HTTP response with JSON job list
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.listJobs = async function() {
+API.listJobs = async function() {
   return await request.get('/job/list');
 };
 
@@ -254,7 +254,7 @@ ClientLibrary.listJobs = async function() {
  * @return {Response} HTTP response with JSON job upload success
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.uploadJobRequest = async function(
+API.uploadJobRequest = async function(
   jobJSONPath,
   jobName,
   autoStart=false) {
@@ -283,7 +283,7 @@ ClientLibrary.uploadJobRequest = async function(
  * @return {Response} HTTP response with JSON job metadata
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.getJobDetails = async function(jobId) {
+API.getJobDetails = async function(jobId) {
   return await request.get('/job/' + jobId);
 };
 
@@ -295,7 +295,7 @@ ClientLibrary.getJobDetails = async function(jobId) {
  * @param {string} jobId - The job's unique ID
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.getJobRequest = async function(jobId) {
+API.getJobRequest = async function(jobId) {
   request.base('/job/' + jobId + '/request').pipe(process.stdout);
 };
 
@@ -308,7 +308,7 @@ ClientLibrary.getJobRequest = async function(jobId) {
  * @return {Response} HTTP response with updated JSON of job status
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.startJob = async function(jobId) {
+API.startJob = async function(jobId) {
   return await request.put('/job/' + jobId + '/start');
 };
 
@@ -320,7 +320,7 @@ ClientLibrary.startJob = async function(jobId) {
  * @param {string} jobId - The job's unique ID
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.getJobStatus = async function(jobId) {
+API.getJobStatus = async function(jobId) {
   request.base('/job/' + jobId + '/status').pipe(process.stdout);
 };
 
@@ -334,7 +334,7 @@ ClientLibrary.getJobStatus = async function(jobId) {
  * Default is output.zip
  * @throws {Error} API error if the request was unsuccessful
  */
-ClientLibrary.downloadJobOutput = async function(
+API.downloadJobOutput = async function(
   jobId,
   outputPath='output.zip') {
   if (!(typeof outputPath === 'string')) {
@@ -351,4 +351,6 @@ ClientLibrary.downloadJobOutput = async function(
   request.base('/job/' + jobId + '/output').pipe(stream);
 };
 
-module.exports = ClientLibrary;
+module.exports = function() {
+  return Object.create(API);
+};
