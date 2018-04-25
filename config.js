@@ -11,7 +11,7 @@
 let auth = require('./auth.js');
 
 let config = {
-  TOKEN: auth.setToken() || process.env.API_TOKEN,
+  TOKEN: auth.setToken() || process.env.VOXEL51_API_TOKEN,
   BASE_URL: 'https://api.voxel51.com/v1/',
 };
 
