@@ -8,15 +8,13 @@
 
 'use strict';
 
-let Authorization = require('./auth.js');
+let auth = require('./auth.js');
 
 let config = {
-  TOKEN: Authorization.setToken() || process.env.API_TOKEN,
-  URI: 'https://api.voxel51.com/v1/',
+  TOKEN: auth.setToken() || process.env.API_TOKEN,
+  BASE_URL: 'https://api.voxel51.com/v1/',
 };
 
-config.HEADER = {
-  'Authorization': 'Bearer ' + config.TOKEN,
-};
+config.HEADER = {'Authorization': 'Bearer ' + config.TOKEN};
 
 module.exports = config;
