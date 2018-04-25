@@ -17,9 +17,8 @@ let fs = require('fs');
 
 let ClientLibrary = Object.create(config);
 
-/**
- * @module @voxel51/algorithm
- */
+// ALGORITHM ROUTES
+// @module @voxel51/algorithm
 
 /**
  * Returns a list of the available algorithms, including their name and
@@ -51,12 +50,11 @@ ClientLibrary.listAlgorithms = async function() {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getAlgorithmDoc = async function(algoId) {
-  request.req('/algo/' + algoId).pipe(process.stdout);
+  request.base('/algo/' + algoId).pipe(process.stdout);
 };
 
 // DATA ROUTES
-
-/** @module @voxel51/data **/
+// @module @voxel51/data
 
 /**
  * Returns a list of all user data uploaded to cloud storage.
@@ -238,8 +236,7 @@ ClientLibrary.deleteDataset = async function(datasetName) {
 };
 
 // JOB ROUTES
-
-/** @module @voxel51/job **/
+// @module @voxel51/job
 
 /**
  * Returns a list of all jobs in the cloud.
