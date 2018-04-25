@@ -53,7 +53,7 @@ describe('api.getDataPage', function() {
     });
   });
 
-  it('should be called with proper uri', function() {
+  it('should be called with proper url', function() {
     let expectedUri = '/data';
 
     this.request = sinon.spy(Request, 'get');
@@ -65,7 +65,7 @@ describe('api.getDataPage', function() {
 });
 
 describe('api.listData', function() {
-  it('should be called with proper uri', function() {
+  it('should be called with proper url', function() {
     let expectedUri = '/data/list';
 
     this.request = sinon.spy(Request, 'get');
@@ -77,19 +77,8 @@ describe('api.listData', function() {
 });
 
 describe('api.getDataDetails', function() {
-  it('should be called with proper uri', function() {
+  it('should be called with proper url', function() {
     let dataId = '2039xjdosiDSK123';
-    let expectedUri = '/data/' + dataId;
-
-    this.request = sinon.spy(Request, 'get');
-
-    api.getDataDetails(dataId);
-    expect(this.request.calledWith(expectedUri));
-    Request.get.restore();
-  });
-
-  it('should coerce non-string to string', function() {
-    let dataId = 234081234987237;
     let expectedUri = '/data/' + dataId;
 
     this.request = sinon.spy(Request, 'get');
