@@ -24,14 +24,6 @@ let ClientLibrary = Object.create(config);
  * Returns a list of the available algorithms, including their name and
  * unique ID.
  *
- * @example
- * // assuming api is instance of ClientLibrary()
- * api.listAlgorithms().then(function(result) {
- *   console.log(result.body);
- * }).catch(function(error) {
- *   console.error(error);
- * });
- *
  * @async
  * @function listAlgorithms
  * @return {Response} HTTP response with JSON algorithm list
