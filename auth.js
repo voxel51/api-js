@@ -8,7 +8,7 @@
 
 'use strict';
 
-let Authorization = {
+let auth = {
   setToken: function setToken() {
     this.token = process.env.API_TOKEN || undefined;
     if (!this.token) {
@@ -21,4 +21,4 @@ let Authorization = {
   },
 };
 
-module.exports = Authorization;
+module.exports = auth;
