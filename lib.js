@@ -123,7 +123,7 @@ ClientLibrary.downloadData = async function(dataId, outputPath) {
   stream.on('end', function() {
     return;
   });
-  request.req('/data/' + dataId + '/download').pipe(stream);
+  request.base('/data/' + dataId + '/download').pipe(stream);
 };
 
 /**
@@ -307,7 +307,7 @@ ClientLibrary.getJobDetails = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getJobRequest = async function(jobId) {
-  request.req('/job/' + jobId + '/request').pipe(process.stdout);
+  request.base('/job/' + jobId + '/request').pipe(process.stdout);
 };
 
 /**
@@ -332,7 +332,7 @@ ClientLibrary.startJob = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 ClientLibrary.getJobStatus = async function(jobId) {
-  request.req('/job/' + jobId + '/status').pipe(process.stdout);
+  request.base('/job/' + jobId + '/status').pipe(process.stdout);
 };
 
 /**
@@ -359,7 +359,7 @@ ClientLibrary.downloadJobOutput = async function(
       return;
   });
 
-  request.req('/job/' + jobId + '/output').pipe(stream);
+  request.base('/job/' + jobId + '/output').pipe(stream);
 };
 
 module.exports = ClientLibrary;
