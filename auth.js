@@ -12,10 +12,7 @@ let auth = {
   setToken: function setToken() {
     this.token = process.env.API_TOKEN || undefined;
     if (!this.token) {
-      let error = Error();
-      error.message = 'No token defined. Set API_TOKEN environment variable';
-      console.error(error);
-      throw error;
+      throw new Error('API_TOKEN is undefined: ' + process.env.API_TOKEN);
     }
     return this.token;
   },
