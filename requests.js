@@ -1,14 +1,17 @@
 /*
- * Thin wrapper over the node request module that provides conveinence methods
+ * Thin wrapper over the Node request module that provides conveinence methods
  * to perform authenticated API requests.
  *
- * Copyright 2018, Voxel51, LLC
+ * Copyright 2017-2018, Voxel51, LLC
  * voxel51.com
+ *
+ * David Hodgson, david@voxel51.com
 */
 
 'use strict';
 
 let request = require('request');
+
 let config = require('./config.js');
 
 let base = request.defaults({

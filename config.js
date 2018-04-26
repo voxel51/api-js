@@ -1,9 +1,11 @@
 /*
- * Configuration module that provides the base URL, API_TOKEN,
- * and authorization header for all subsequent API requests.
+ * Configuration module that provides the base URL, token environment variable,
+ * and authorization header for the API.
  *
- * Copyright 2018, Voxel51, LLC
+ * Copyright 2017-2018, Voxel51, LLC
  * voxel51.com
+ *
+ * David Hodgson, david@voxel51.com
 */
 
 'use strict';

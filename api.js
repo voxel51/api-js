@@ -8,12 +8,12 @@
  * David Hodgson, david@voxel51.com
 */
 
-
 'use strict';
 
-let request = require('./requests.js');
-let config = require('./config.js');
 let fs = require('fs');
+
+let config = require('./config.js');
+let request = require('./requests.js');
 
 let API = Object.create(config);
 
