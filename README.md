@@ -1,9 +1,4 @@
 # Voxel51 JavaScript Client Library
->
-> Copyright 2017-2018, Voxel51, LLC.
->
-> David Hodgson, david@voxel51.com
->
 
 This package defines a JavaScript client library for accessing the Voxel51
 Vision Services API.
@@ -166,8 +161,17 @@ jsdoc -c conf.json
 ```
 
 The landing page of the docs is located in `./docs/index.html`. The landing
-page currently is blank, but can be altered if desired. 
+page currently is blank, but can be altered if desired.
 
 Additional configuration options are available. See
 [JSDoc](https://github.com/jsdoc3/jsdoc) and
 [docstrap](https://github.com/docstrap/docstrap) for more information.
+
+
+## Copyright
+
+Copyright 2018, Voxel51, LLC,
+voxel51.com
+
+David Hodgson,
+david@voxel51.com
