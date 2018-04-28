@@ -1,20 +1,25 @@
 # Voxel51 JavaScript Client Library
 
-This package defines a JavaScript client library for accessing the Voxel51
-Vision Services API.
+This package defines a JavaScript client library built on
+[Node.js](https://nodejs.org/en) for accessing the Voxel51 Vision Services API.
 
-This library is Promise-based and thus compatibile with standard
+This library is `Promise`-based and thus compatibile with standard
 `async/await`-based usage. It defines no callbacks, so JavaScript ES6+ or
 proper pollyfills are required.
 
+> This library requires [Node.js](https://nodejs.org/en) and
+> [npm](https://www.npmjs.com).
+
+
 ## Installation
 
-To install the necessary packages, move to the project's root directory and
+To install the client library, navigate to the project's root directory and
 run:
 
 ```shell
 npm install
 ```
+
 
 ## Sign-up and Authentication
 
@@ -24,20 +29,35 @@ https://api.voxel51.com). Next, download an API authentication token from
 **Keep this token private**---it is your access key to the API.
 
 Each API request you make must be authenticated by your token. To activate your
-token, set the `API_TOKEN` environment variable in your shell to the private
-key of your token:
+token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
+to your API token file:
 
 ```shell
-export API_TOKEN="XXXXXXXXXXXX"
+export VOXEL51_API_TOKEN="/path/to/your/token.json"
 ```
+
+Alternatively, you can permanently activate a token with:
+
+```js
+let auth = require('./auth.js');
+
+auth.activateToken("/path/to/your/token.json");
+```
+
+In the latter case, your token is copied to `~/.voxel51/` and will be
+automatically used in all future sessions. A token can be deactivated via the
+`auth.deactivateToken()` method.
+
+After you have activated an API token, you have full access to the API.
+
 
 ## Example Usage
 
 The following examples describe some actions you can take using the API.
 
-To initialize an API session, issue the following commands from a Node REPL:
+To initialize an API session, issue the following commands:
 ```js
-const API = require('./index.js');
+let API = require('./api.js');
 
 // Start an API session
 let api = API();
