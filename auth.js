@@ -12,8 +12,10 @@
 
 let fs = require('fs');
 
+let config = require('./config.js');
+
 let auth = {
-  setToken: function setToken() {
+  setToken: function() {
     this.tokenFile = process.env.VOXEL51_API_TOKEN || "~/.voxel51/api-token.json";
     if (!fs.existsSync(this.token)) {
       throw new Error('Set VOXEL51_API_TOKEN to credentials or move to ' +
@@ -25,6 +27,26 @@ let auth = {
       return this.token;
     }
   },
+
+  activateToken: function() {},
+
+  deactivateToken: function() {},
+
+  loadToken: function() {
+    let tokenPath = process.env[config.TOKEN_ENVIRON_VAR] || config.TOKEN_PATH;
+
+
+  }
 };
 
 module.exports = auth;
+
+
+
+
+let config = {
+  TOKEN_ENVIRON_VAR: "VOXEL51_API_TOKEN",
+  TOKEN_PATH: "~/.voxel51/api-token.json",
+  ACCESS_TOKEN_FIELD: "access_token",
+  PRIVATE_KEY_FIELD: "private_key",
+  BASE_URL: 'https://api.voxel51.com/v1/',

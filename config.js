@@ -13,8 +13,13 @@
 let auth = require('./auth.js');
 
 let config = {
-  TOKEN: auth.setToken() || process.env.VOXEL51_API_TOKEN,
+  TOKEN_ENVIRON_VAR: "VOXEL51_API_TOKEN",
+  TOKEN_PATH: "~/.voxel51/api-token.json",
+  ACCESS_TOKEN_FIELD: "access_token",
+  PRIVATE_KEY_FIELD: "private_key",
   BASE_URL: 'https://api.voxel51.com/v1/',
+
+  TOKEN: auth.setToken() || process.env.VOXEL51_API_TOKEN,
 };
 
 config.HEADER = {'Authorization': 'Bearer ' + config.TOKEN};
