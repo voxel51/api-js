@@ -4,14 +4,10 @@
     "version": "1.0.0",
     "author": "Voxel51, LLC",
     "license": "BSD 4-clause",
-    "main": "lib.js",
-    "scripts": {
-        "test-verbose": "DEBUG=test mocha test/test.js --timeout=10000",
-        "test": "mocha test/test.js --timeout=10000",
-        "unit-test": "mocha test/*.spec.js --timeout=5000",
-        "unit-test-verbose": "DEBUG=test mocha test/*.spec.js --timeout=5000"
-    },
+    "main": "api.js",
+    "scripts": {},
     "dependencies": {
+        "npm": "^6.0.0",
         "request": "^2.83.0"
     },
     "devDependencies": {
