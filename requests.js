@@ -18,12 +18,13 @@ let base = request.defaults({
   baseUrl: config.BASE_URL,
   headers: auth.getRequestHeader(),
 });
+exports.base = base;
 
-let validate = function validate(rsp, body) {
+function validate(res, body) {
   return new Promise(function(resolve, reject) {
-    if (rsp.statusCode > 299) {
+    if (res.statusCode > 299) {
       let error = new Error(body);
-      error.code = rsp.statusCode;
+      error.code = res.statusCode;
       throw error;
       reject(err);
     } else {
@@ -31,14 +32,15 @@ let validate = function validate(rsp, body) {
     }
   });
 };
+exports.validate = validate;
 
 exports.get = function(options) {
   return new Promise(function(resolve, reject) {
-    base.get(options, async function(err, rsp, body) {
+    base.get(options, async function(err, res, body) {
       if (err) {
         reject(err);
       } else {
-        resolve(await validate(rsp, body));
+        resolve(await validate(res, body));
       }
     });
   });
@@ -46,11 +48,11 @@ exports.get = function(options) {
 
 exports.post = function(options) {
   return new Promise(function(resolve, reject) {
-    base.post(options, async function(err, rsp, body) {
+    base.post(options, async function(err, res, body) {
       if (err) {
         reject(err);
       } else {
-        resolve(await validate(rsp, body));
+        resolve(await validate(res, body));
       }
     });
   });
@@ -58,11 +60,11 @@ exports.post = function(options) {
 
 exports.delete = function(options) {
   return new Promise(function(resolve, reject) {
-    base.delete(options, async function(err, rsp, body) {
+    base.delete(options, async function(err, res, body) {
       if (err) {
         reject(err);
       } else {
-        resolve(await validate(rsp, body));
+        resolve(await validate(res, body));
       }
     });
   });
@@ -70,15 +72,12 @@ exports.delete = function(options) {
 
 exports.put = function(options) {
   return new Promise(function(resolve, reject) {
-    base.put(options, async function(err, rsp, body) {
+    base.put(options, async function(err, res, body) {
       if (err) {
         reject(err);
       } else {
-        resolve(await validate(rsp, body));
+        resolve(await validate(res, body));
       }
     });
   });
 };
-
-exports.base = base;
-exports.validate = validate;
