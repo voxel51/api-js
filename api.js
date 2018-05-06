@@ -13,7 +13,7 @@
 let fs = require('fs');
 
 let config = require('./config.js');
-let request = require('./requests.js');
+let requests = require('./requests.js');
 
 let API = Object.create(config);
 
@@ -30,7 +30,7 @@ let API = Object.create(config);
  * @throws {Error} API error if the request was unsuccessful
  */
 API.listAlgorithms = async function() {
-  return await request.get('/algo/list');
+  return await requests.get('/algo/list');
 };
 
 /**
@@ -42,7 +42,7 @@ API.listAlgorithms = async function() {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.getAlgorithmDoc = async function(algoId) {
-  request.base('/algo/' + algoId).pipe(process.stdout);
+  requests.base('/algo/' + algoId).pipe(process.stdout);
 };
 
 // DATA ROUTES
@@ -57,7 +57,7 @@ API.getAlgorithmDoc = async function(algoId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.listData = async function() {
-  return await request.get('/data/list');
+  return await requests.get('/data/list');
 };
 
 /**
@@ -74,7 +74,7 @@ API.uploadData = async function(filePath) {
     file: fs.createReadStream(filePath),
   };
 
-  return await request.post({
+  return await requests.post({
     uri: '/data',
     formData: formData,
   });
@@ -90,7 +90,7 @@ API.uploadData = async function(filePath) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.getDataDetails = async function(dataId) {
-  return await request.get('/data/' + dataId);
+  return await requests.get('/data/' + dataId);
 };
 
 /**
@@ -113,7 +113,7 @@ API.downloadData = async function(dataId, outputPath) {
   stream.on('end', function() {
     return;
   });
-  request.base('/data/' + dataId + '/download').pipe(stream);
+  requests.base('/data/' + dataId + '/download').pipe(stream);
 };
 
 /**
@@ -126,7 +126,7 @@ API.downloadData = async function(dataId, outputPath) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.deleteData = async function(dataId) {
-  return await request.delete('/data/' + dataId);
+  return await requests.delete('/data/' + dataId);
 };
 
 // DATASET ROUTES
@@ -239,7 +239,7 @@ API.deleteDataset = async function(datasetName) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.listJobs = async function() {
-  return await request.get('/job/list');
+  return await requests.get('/job/list');
 };
 
 /**
@@ -249,7 +249,7 @@ API.listJobs = async function() {
  * @function uploadJobRequest
  * @param {string} jobJSONPath - Path to the job JSON request file
  * @param {string} jobName - Name for the new job
- * @param {boolean} autoStart - Determines if job will be automatically started.
+ * @param {boolean} autoStart - Determines if job will be automatically started
  * Default value: false
  * @return {Response} HTTP response with JSON job upload success
  * @throws {Error} API error if the request was unsuccessful
@@ -268,7 +268,7 @@ API.uploadJobRequest = async function(
     'file': fs.createReadStream(jobJSONPath),
   };
 
-  return await request.post({
+  return await requests.post({
     uri: '/job',
     formData: formData,
   });
@@ -284,7 +284,7 @@ API.uploadJobRequest = async function(
  * @throws {Error} API error if the request was unsuccessful
  */
 API.getJobDetails = async function(jobId) {
-  return await request.get('/job/' + jobId);
+  return await requests.get('/job/' + jobId);
 };
 
 /**
@@ -296,7 +296,7 @@ API.getJobDetails = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.getJobRequest = async function(jobId) {
-  request.base('/job/' + jobId + '/request').pipe(process.stdout);
+  requests.base('/job/' + jobId + '/request').pipe(process.stdout);
 };
 
 /**
@@ -309,7 +309,7 @@ API.getJobRequest = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.startJob = async function(jobId) {
-  return await request.put('/job/' + jobId + '/start');
+  return await requests.put('/job/' + jobId + '/start');
 };
 
 /**
@@ -321,7 +321,7 @@ API.startJob = async function(jobId) {
  * @throws {Error} API error if the request was unsuccessful
  */
 API.getJobStatus = async function(jobId) {
-  request.base('/job/' + jobId + '/status').pipe(process.stdout);
+  requests.base('/job/' + jobId + '/status').pipe(process.stdout);
 };
 
 /**
@@ -348,7 +348,7 @@ API.downloadJobOutput = async function(
       return;
   });
 
-  request.base('/job/' + jobId + '/output').pipe(stream);
+  requests.base('/job/' + jobId + '/output').pipe(stream);
 };
 
 module.exports = function() {
