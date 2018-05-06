@@ -1,5 +1,5 @@
-node_modules/
+
 .eslintrc.js
-.token.txt
+
+node_modules/
 docs/
-temp/
