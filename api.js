@@ -15,7 +15,7 @@ let fs = require('fs');
 let config = require('./config.js');
 let requests = require('./requests.js');
 
-let API = Object.create(config);
+let API = {};
 
 // ALGORITHM ROUTES
 // @module @voxel51/algorithm
