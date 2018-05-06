@@ -12,11 +12,11 @@
 
 let request = require('request');
 
-let config = require('./config.js');
+let auth = require('./auth.js');
 
 let base = request.defaults({
   baseUrl: config.BASE_URL,
-  headers: config.HEADER,
+  headers: auth.getRequestHeader(),
 });
 
 let validate = function validate(rsp, body) {
