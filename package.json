@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "author": "Voxel51, LLC",
     "license": "BSD 4-clause",
-    "main": "index.js",
+    "main": "./lib/index.js",
     "scripts": {},
     "dependencies": {
         "mkdirp": "^0.5.1",
