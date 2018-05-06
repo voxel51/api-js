@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Generate javascript client library documentation
+# Generate JavaScript client library documentation
 #
 # Usage:
 #   bash generate_docs.bash

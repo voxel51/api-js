@@ -1,15 +1,16 @@
 {
     "plugins": [],
-    "recurseDepth": 2,
+    "recurseDepth": 10,
     "source": {
-        "include": ["./lib.js"]
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
     },
     "tags": {
         "allowUnknownTags": false
     },
     "templates": {
-        "systemName": "Voxel51 Vision Services Node Client Library",
-        "footer": "Property of Voxel51, LLC",
+        "systemName": "Voxel51 Vision Services API",
+        "footer": "Voxel51, LLC",
         "copyright": 2018,
         "theme": "slate",
         "sort": false,
