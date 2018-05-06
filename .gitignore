@@ -1,4 +1,6 @@
 
+!lib/
+
 .eslintrc.js
 
 node_modules/

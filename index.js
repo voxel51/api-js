@@ -9,5 +9,5 @@
 
 'use strict';
 
-exports.api = require('./api.js');
-exports.auth = require('./auth.js');
+exports.api = require('./lib/api.js');
+exports.auth = require('./lib/auth.js');
