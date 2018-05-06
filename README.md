@@ -1,19 +1,15 @@
-# Voxel51 JavaScript Client Library
+# Voxel51 API JavaScript Client Library
 
 This package defines a JavaScript client library built on
 [Node.js](https://nodejs.org/en) for accessing the Voxel51 Vision Services API.
 
-This library is `Promise`-based and thus compatibile with standard
-`async/await`-based usage. It defines no callbacks, so JavaScript ES6+ or
-proper pollyfills are required.
-
-> This library requires [Node.js](https://nodejs.org/en) and
-> [npm](https://www.npmjs.com).
+The library is asynchronous and ES6+ Promise-compliant, so it is compatible
+with standard `async/await`-based usage.
 
 
 ## Installation
 
-To install the client library, navigate to the project's root directory and
+To install the library, navigate to the project's root directory and
 run:
 
 ```shell
@@ -39,14 +35,14 @@ export VOXEL51_API_TOKEN="/path/to/your/token.json"
 Alternatively, you can permanently activate a token with:
 
 ```js
-let auth = require('./auth.js');
+let voxel51 = require('@voxel51/api');
 
-auth.activateToken("/path/to/your/token.json");
+voxel51.auth.activateToken("/path/to/your/token.json");
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
 automatically used in all future sessions. A token can be deactivated via the
-`auth.deactivateToken()` method.
+`voxel51.auth.deactivateToken()` method.
 
 After you have activated an API token, you have full access to the API.
 
@@ -57,10 +53,10 @@ The following examples describe some actions you can take using the API.
 
 To initialize an API session, issue the following commands:
 ```js
-let API = require('./api.js');
+let voxel51 = require('@voxel51/api');
 
 // Start an API session
-let api = API();
+let api = voxel51.api.API();
 ```
 
 ### Data
@@ -150,10 +146,12 @@ Download the output of a completed job:
 ```
 
 
-## Promise Chain Example
+## Asynchronous Execution
 
-This library is ES6+ Promise-compliant. The following shows a non-`async/await`
-example of a data upload request:
+This library is ES6+ Promise-compliant, so you can use it to interact
+asynchronously with the API server. For example, the following code shows how
+to perform an asynchronous data upload request:
+
 ```js
 api.uploadData('/path/to/video.mp4').then(function(res) {
   // res contains the JSON response;
@@ -164,34 +162,22 @@ api.uploadData('/path/to/video.mp4').then(function(res) {
 ```
 
 
-## Error Handling
-
-It is strongly recommended to wrap any `async/await` calls with `try/catch`
-blocks to ensure all exceptions and errors are captured. These were omitted
-from the examples above for brevity.
-
 ## Generating Documentation
 
-The node client library uses `JSDOC` docstrings to autogenerate some HTML
-documentation. Running the `generate_docs.bash` script will re-generate the
-docs. To do so manually, run
+This project uses [JSDoc](https://github.com/jsdoc3/jsdoc) to generate its
+documentation from source. To generate the documentation, run:
 
 ```shell
-jsdoc -c conf.json
+bash generate_docs.bash
 ```
 
-The landing page of the docs is located in `./docs/index.html`. The landing
-page currently is blank, but can be altered if desired.
-
-Additional configuration options are available. See
-[JSDoc](https://github.com/jsdoc3/jsdoc) and
-[docstrap](https://github.com/docstrap/docstrap) for more information.
+To view the documentation, open the `docs/index.html` file in your browser.
 
 
 ## Copyright
 
-Copyright 2018, Voxel51, LLC,
+Copyright 2018, Voxel51, LLC\
 voxel51.com
 
-David Hodgson,
-david@voxel51.com
+David Hodgson, david@voxel51.com\
+Brian Moore, brian@voxel51.com
