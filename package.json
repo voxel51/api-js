@@ -1,10 +1,10 @@
 {
-    "name": "@voxel51/javascript-client-library",
+    "name": "@voxel51/api-javascript",
     "description": "JavaScript client library for the Voxel51 Vision Services API",
-    "version": "1.0.0",
+    "version": "1.0",
     "author": "Voxel51, LLC",
     "license": "BSD 4-clause",
-    "main": "api.js",
+    "main": "index.js",
     "scripts": {},
     "dependencies": {
         "mkdirp": "^0.5.1",

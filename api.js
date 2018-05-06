@@ -1,11 +1,11 @@
 /*
- * Main client library module. Creates the client library
- * object with all user-facing functions.
+ * Main interface definition for the API.
  *
  * Copyright 2017-2018, Voxel51, LLC
  * voxel51.com
  *
  * David Hodgson, david@voxel51.com
+ * Brian Moore, brian@voxel51.com
 */
 
 'use strict';
