@@ -1,11 +1,11 @@
 /*
- * Authorization module of JS client library. Checks for a set
- * API_TOKEN environment variable. If not present, throws error.
+ * Authentication module for the API.
  *
  * Copyright 2017-2018, Voxel51, LLC
  * voxel51.com
  *
  * David Hodgson, david@voxel51.com
+ * Brian Moore, brian@voxel51.com
 */
 
 'use strict';
@@ -13,40 +13,63 @@
 let fs = require('fs');
 
 let config = require('./config.js');
+let utils = require('./utils.js');
 
-let auth = {
-  setToken: function() {
-    this.tokenFile = process.env.VOXEL51_API_TOKEN || "~/.voxel51/api-token.json";
-    if (!fs.existsSync(this.token)) {
-      throw new Error('Set VOXEL51_API_TOKEN to credentials or move to ' +
-        '~/.voxel51/api-token.json.');
-    } else {
-      let file = fs.readFileSync(this.tokenFile);
-      let data = JSON.parse(file);
-      this.token = data.private_key;
-      return this.token;
-    }
-  },
-
-  activateToken: function() {},
-
-  deactivateToken: function() {},
-
-  loadToken: function() {
-    let tokenPath = process.env[config.TOKEN_ENVIRON_VAR] || config.TOKEN_PATH;
-
-
-  }
+/**
+ * Activates the given token by copying it to `~/.voxel51/api-token.json`.
+ * Subsequent API instances will now use this token for authentication.
+ *
+ * @function activateToken
+ * @param {string} path - Path to a token JSON file
+ */
+exports.activateToken = function(path) {
+  utils.ensureBaseDir(path);
+  fs.copyFileSync(path, config.TOKEN_PATH);
 };
 
-module.exports = auth;
+/**
+ * Deactivates (deletes) the currently active token, if any.
+ * The active token is the token at `~/.voxel51/api-token.json`.
+ *
+ * @function deactivateToken
+ * @throws {Error} if there was no active token to deactivate
+ */
+exports.deactivateToken = function() {
+  if (!fs.existsSync(config.TOKEN_PATH)) {
+    throw new Error('No token to deactivate');
+  }
+  fs.unlinkSync(config.TOKEN_PATH);
+};
 
+/**
+ * Loads the active API token. If the `VOXEL51_API_TOKEN` environment variable
+ * is set, this is the active token and will be loaded. Otherwise the token is
+ * loaded from `~/.voxel51/api-token.json`.
+ *
+ * @private
+ * @function loadToken
+ * @return {object} the token JSON object
+ * @throws {Error} if no valid token was found
+ */
+function loadToken() {
+  let tokenPath = process.env[config.TOKEN_ENVIRON_VAR] || config.TOKEN_PATH;
+  if (!fs.existsSync(tokenPath)) {
+    throw new Error('No token found');
+  }
+  let token = fs.readFileSync(tokenPath);
+  return JSON.parse(token);
+};
+exports.loadToken = loadToken;
 
-
-
-let config = {
-  TOKEN_ENVIRON_VAR: "VOXEL51_API_TOKEN",
-  TOKEN_PATH: "~/.voxel51/api-token.json",
-  ACCESS_TOKEN_FIELD: "access_token",
-  PRIVATE_KEY_FIELD: "private_key",
-  BASE_URL: 'https://api.voxel51.com/v1/',
+/**
+ * Gets the HTTP request header for the active API token.
+ *
+ * @private
+ * @function getRequestHeader
+ * @return {object} the authenticated request header
+ */
+exports.getRequestHeader = function() {
+  let token = loadToken();
+  let key = token[config.ACCESS_TOKEN_FIELD][config.PRIVATE_KEY_FIELD];
+  return {'Authorization': 'Bearer ' + key};
+};
