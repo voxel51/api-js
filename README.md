@@ -9,6 +9,8 @@ with standard `async/await`-based usage.
 
 ## Installation
 
+> @todo update when we publish the npm package
+
 To install the library, navigate to the project's root directory and
 run:
 
