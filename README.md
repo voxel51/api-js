@@ -35,14 +35,14 @@ export VOXEL51_API_TOKEN="/path/to/your/token.json"
 Alternatively, you can permanently activate a token with:
 
 ```js
-let voxel51 = require('@voxel51/api');
+let voxel51api = require('@voxel51/api');
 
-voxel51.auth.activateToken("/path/to/your/token.json");
+voxel51api.auth.activateToken("/path/to/your/token.json");
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
 automatically used in all future sessions. A token can be deactivated via the
-`voxel51.auth.deactivateToken()` method.
+`voxel51api.auth.deactivateToken()` method.
 
 After you have activated an API token, you have full access to the API.
 
@@ -53,10 +53,10 @@ The following examples describe some actions you can take using the API.
 
 To initialize an API session, issue the following commands:
 ```js
-let voxel51 = require('@voxel51/api');
+let voxel51api = require('@voxel51/api');
 
 // Start an API session
-let api = voxel51.api.API();
+let api = voxel51api.API();
 ```
 
 ### Data
