@@ -59,39 +59,39 @@ let voxel51api = require('@voxel51/api');
 let api = voxel51api.API();
 ```
 
-### Data
-
-Upload data to the cloud:
-```js
-(async function() {
-  let res = await api.uploadData('water.mp4');
-  console.log(res.statusCode, res.body);
-})();
-```
-
-List uploaded data:
-```js
-(async function() {
-  let res = await api.listData();
-  console.log(res.statusCode, res.body);
-})();
-```
-
 ### Algorithms
 
 List available algorithms:
 ```js
 (async function() {
-  let res = await api.listAlgorithms();
-  console.log(res.statusCode);
-  console.log(JSON.stringify(res.body, null, 2));
+  let algos = await api.listAlgorithms();
+  console.log(algos);
 })();
 ```
 
 Download algorithm documentation:
 ```js
 (async function() {
-  let res = await api.getAlgorithmDetails('f6275458-b39b-4933-9dca-58565500eadb');
+  let doc = await api.getAlgorithmDetails('<algoId>');
+  console.log(doc);
+})();
+```
+
+### Data
+
+Upload data to the cloud:
+```js
+(async function() {
+  let metadata = await api.uploadData('/path/to/video.mp4');
+  console.log(metadata);
+})();
+```
+
+List uploaded data:
+```js
+(async function() {
+  let data = await api.listData();
+  console.log(data);
 })();
 ```
 
@@ -116,32 +116,31 @@ Define a valid job request JSON file. For example:
 Upload a job request:
 ```js
 (async function() {
-  let res = await api.uploadJobRequest('job.json', 'node-demo', 'false');
-  console.log(res.statusCode, res.body);
+  let jobJSONPath = '/path/to/job.json';
+  let metadata = await api.uploadJobRequest(jobJSONPath, 'test-job');
+  console.log(metadata);
 })();
 ```
 
 Start a job:
 ```js
 (async function() {
-  let res = await api.startJob('b2db6869-36fe-4960-a8a7-7622de7ba660');
-  console.log(res.statusCode, res.body);
+  await api.startJob('<jobId>');
 })();
 ```
 
 Get the status of a job:
 ```js
 (async function() {
-  let res = await api.getJobStatus('b2db6869-36fe-4960-a8a7-7622de7ba660');
+  let status = await api.getJobStatus('<jobId>');
+  console.log(status);
 })();
 ```
 
 Download the output of a completed job:
 ```js
 (async function() {
-  let res = await api.getJobOutput(
-    'b2db6869-36fe-4960-a8a7-7622de7ba660', 'node-demo.zip');
-  console.log('Done');
+  await api.downloadJobOutput('<jobId>', 'output.zip');
 })();
 ```
 
@@ -153,9 +152,8 @@ asynchronously with the API server. For example, the following code shows how
 to perform an asynchronous data upload request:
 
 ```js
-api.uploadData('/path/to/video.mp4').then(function(res) {
-  // res contains the JSON response;
-  // do something with it...
+api.uploadData('/path/to/video.mp4').then(function(metadata) {
+  // do something with the returned metadata
 }).catch(function(error) {
   throw error;
 });
