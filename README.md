@@ -58,24 +58,22 @@ To initialize an API session, issue the following commands:
 let voxel51api = require('@voxel51/api');
 
 // Start an API session
-let api = voxel51api.API();
+let api = new voxel51api.API();
 ```
 
 ### Algorithms
 
 List available algorithms:
 ```js
-(async function() {
-  let algos = await api.listAlgorithms();
-  console.log(algos);
+let algos = (async function() {
+  return await api.listAlgorithms();
 })();
 ```
 
 Download algorithm documentation:
 ```js
-(async function() {
-  let doc = await api.getAlgorithmDetails('<algoId>');
-  console.log(doc);
+let doc = (async function() {
+  return await api.getAlgorithmDetails('<algoId>');
 })();
 ```
 
@@ -83,44 +81,24 @@ Download algorithm documentation:
 
 Upload data to the cloud:
 ```js
-(async function() {
-  let metadata = await api.uploadData('/path/to/video.mp4');
-  console.log(metadata);
+let metadata = (async function() {
+  return await api.uploadData('/path/to/video.mp4');
 })();
 ```
 
 List uploaded data:
 ```js
-(async function() {
-  let data = await api.listData();
-  console.log(data);
+let data = (async function() {
+  return await api.listData();
 })();
 ```
 
 ### Jobs
 
-Define a valid job request JSON file. For example:
-```json
-{
-    "algorithm": "f6275458-b39b-4933-9dca-58565500eadb",
-    "inputs": {
-        "raw-video": {
-            "data-id": "f320a7a3-6fb3-4819-9a24-f780437675be"
-        }
-    },
-    "parameters" : {
-        "scale": 0.5,
-        "fps": 5
-    }
-}
-```
-
 Upload a job request:
 ```js
-(async function() {
-  let jobJSONPath = '/path/to/job.json';
-  let metadata = await api.uploadJobRequest(jobJSONPath, 'test-job');
-  console.log(metadata);
+let metadata = (async function() {
+  return await api.uploadJobRequest('/path/to/job.json', 'test-job');
 })();
 ```
 
@@ -133,9 +111,8 @@ Start a job:
 
 Get the status of a job:
 ```js
-(async function() {
-  let status = await api.getJobStatus('<jobId>');
-  console.log(status);
+let status = (async function() {
+  return await api.getJobStatus('<jobId>');
 })();
 ```
 
@@ -154,15 +131,21 @@ asynchronously with the API server. For example, the following code shows how
 to perform an asynchronous data upload request:
 
 ```js
-api.uploadData('/path/to/video.mp4').then(function(metadata) {
-  // do something with the returned metadata
-}).catch(function(error) {
-  throw error;
-});
+api.uploadData('/path/to/video.mp4').then(
+  function(metadata) {
+    // do something with the returned metadata
+  }
+).catch(
+  function(error) {
+    throw error;
+  }
+);
 ```
 
 
 ## Generating Documentation
+
+> @todo find a better JSDoc template
 
 This project uses [JSDoc](https://github.com/jsdoc3/jsdoc) to generate its
 documentation from source. To generate the documentation, run:
