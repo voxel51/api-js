@@ -24,7 +24,7 @@ npm install
 To use the API, you must first create an account at [https://api.voxel51.com](
 https://api.voxel51.com). Next, download an API authentication token from
 [https://api.voxel51.com/authenticate](https://api.voxel51.com/authenticate).
-**Keep this token private**---it is your access key to the API.
+**Keep this token private**; it is your access key to the API.
 
 Each API request you make must be authenticated by your token. To activate your
 token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
@@ -57,7 +57,6 @@ To initialize an API session, issue the following commands:
 ```js
 let voxel51api = require('@voxel51/api');
 
-// Start an API session
 let api = new voxel51api.API();
 ```
 
@@ -145,8 +144,6 @@ api.uploadData('/path/to/video.mp4').then(
 
 ## Generating Documentation
 
-> @todo find a better JSDoc template
-
 This project uses [JSDoc](https://github.com/jsdoc3/jsdoc) to generate its
 documentation from source. To generate the documentation, run:
 
@@ -159,8 +156,8 @@ To view the documentation, open the `docs/index.html` file in your browser.
 
 ## Copyright
 
-Copyright 2018, Voxel51, LLC\
+Copyright 2018, Voxel51, LLC<br>
 voxel51.com
 
-David Hodgson, david@voxel51.com\
+David Hodgson, david@voxel51.com<br>
 Brian Moore, brian@voxel51.com
