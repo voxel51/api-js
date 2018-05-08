@@ -13,6 +13,6 @@
 
 echo "**** Generating API documentation"
 
-./node_modules/.bin/jsdoc -c conf.json
+./node_modules/.bin/jsdoc -c jsdoc.json
 
 echo "**** API documentation complete"
