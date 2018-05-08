@@ -5,8 +5,11 @@
     "author": "Voxel51, LLC",
     "license": "BSD 4-clause",
     "main": "./lib/index.js",
-    "scripts": {},
+    "scripts": {
+        "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
+    },
     "dependencies": {
+        "jsdoc-template": "git://github.com/braintree/jsdoc-template.git",
         "mkdirp": "^0.5.1",
         "npm": "^6.0.0",
         "request": "^2.83.0"
