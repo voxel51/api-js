@@ -9,10 +9,17 @@ with standard `async/await`-based usage.
 
 ## Installation
 
-To install the library, run:
+To install the library, first clone it:
 
 ```shell
-npm install @voxel51/api
+git clone https://github.com/voxel51/api-js
+cd api-js
+```
+
+and then install the package:
+
+```shell
+npm install
 ```
 
 
@@ -50,6 +57,7 @@ After you have activated an API token, you have full access to the API.
 The following examples describe some actions you can take using the API.
 
 To initialize an API session, issue the following commands:
+
 ```js
 let voxel51api = require('@voxel51/api');
 
@@ -59,6 +67,7 @@ let api = new voxel51api.API();
 ### Algorithms
 
 List available algorithms:
+
 ```js
 let algos = (async function() {
   return await api.listAlgorithms();
@@ -66,6 +75,7 @@ let algos = (async function() {
 ```
 
 Download algorithm documentation:
+
 ```js
 let doc = (async function() {
   return await api.getAlgorithmDetails('<algoId>');
@@ -75,6 +85,7 @@ let doc = (async function() {
 ### Data
 
 Upload data to the cloud:
+
 ```js
 let metadata = (async function() {
   return await api.uploadData('/path/to/video.mp4');
@@ -82,6 +93,7 @@ let metadata = (async function() {
 ```
 
 List uploaded data:
+
 ```js
 let data = (async function() {
   return await api.listData();
@@ -91,6 +103,7 @@ let data = (async function() {
 ### Jobs
 
 Upload a job request:
+
 ```js
 let metadata = (async function() {
   return await api.uploadJobRequest('/path/to/job.json', 'test-job');
@@ -98,6 +111,7 @@ let metadata = (async function() {
 ```
 
 Start a job:
+
 ```js
 (async function() {
   await api.startJob('<jobId>');
@@ -105,6 +119,7 @@ Start a job:
 ```
 
 Get the status of a job:
+
 ```js
 let status = (async function() {
   return await api.getJobStatus('<jobId>');
@@ -112,6 +127,7 @@ let status = (async function() {
 ```
 
 Download the output of a completed job:
+
 ```js
 (async function() {
   await api.downloadJobOutput('<jobId>', 'output.zip');
