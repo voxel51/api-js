@@ -9,29 +9,25 @@ with standard `async/await`-based usage.
 
 ## Installation
 
-> @todo update when we publish the npm package
-
-To install the library, navigate to the project's root directory and
-run:
+To install the library, run:
 
 ```shell
-npm install
+npm install @voxel51/api
 ```
 
 
 ## Sign-up and Authentication
 
-To use the API, you must first create an account at [https://api.voxel51.com](
-https://api.voxel51.com). Next, download an API authentication token from
-[https://api.voxel51.com/authenticate](https://api.voxel51.com/authenticate).
-**Keep this token private**; it is your access key to the API.
+To use the API, you must first create an account at [https://console.voxel51.com](
+https://console.voxel51.com) and download an API token.
+**Keep this token private**. It is your access key to the API.
 
 Each API request you make must be authenticated by your token. To activate your
 token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
 to your API token file:
 
 ```shell
-export VOXEL51_API_TOKEN="/path/to/your/token.json"
+export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
 Alternatively, you can permanently activate a token with:
@@ -39,7 +35,7 @@ Alternatively, you can permanently activate a token with:
 ```js
 let voxel51api = require('@voxel51/api');
 
-voxel51api.auth.activateToken("/path/to/your/token.json");
+voxel51api.auth.activateToken("/path/to/your/api-token.json");
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
