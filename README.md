@@ -64,21 +64,21 @@ let voxel51api = require('@voxel51/api');
 let api = new voxel51api.API();
 ```
 
-### Algorithms
+### Analytics
 
-List available algorithms:
+List available analytics:
 
 ```js
-let algos = (async function() {
-  return await api.listAlgorithms();
+let analytics = (async function() {
+  return await api.listAnalytics();
 })();
 ```
 
-Download algorithm documentation:
+Get documentation for an analytic:
 
 ```js
 let doc = (async function() {
-  return await api.getAlgorithmDetails('<algoId>');
+  return await api.getAnalyticDoc('<analyticId>');
 })();
 ```
 
