@@ -3,8 +3,9 @@
 This package defines a JavaScript client library built on
 [Node.js](https://nodejs.org/en) for accessing the Voxel51 Vision Services API.
 
-The library is asynchronous and ES6+ Promise-compliant, so it is compatible
-with standard `async/await`-based usage.
+The library is implemented with
+[ES6-style classes](http://es6-features.org/#ClassDefinition) and uses
+`async`/`await` to deliver Promised-based asynchronous behavior.
 
 
 ## Installation
@@ -78,7 +79,7 @@ Get documentation for an analytic:
 
 ```js
 let doc = (async function() {
-  return await api.getAnalyticDoc('<analyticId>');
+  return await api.getAnalyticDoc(analyticId);
 })();
 ```
 
@@ -106,11 +107,11 @@ Upload a job request:
 
 ```js
 // Create a job request
-let jobRequest = new voxel51.jobs.JobRequest('<analyticId>');
-let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<dataId>');
-jobRequest.setInput("<input>", inputPath);
-jobRequest.setParameter("<param1>", val1);
-jobRequest.setParameter("<param2>", val2);
+let jobRequest = new voxel51.jobs.JobRequest(analyticId);
+let inputPath = voxel51.jobs.RemoteDataPath.fromDataId(dataId);
+jobRequest.setInput('<input>', inputPath);
+jobRequest.setParameter('<param1>', val1);
+jobRequest.setParameter('<param2>', val2);
 
 // Upload the request
 let metadata = (async function() {
@@ -118,11 +119,19 @@ let metadata = (async function() {
 })();
 ```
 
+List the jobs you have created:
+
+```js
+let jobs = (async function() {
+  return await api.listJobs();
+})();
+```
+
 Start a job:
 
 ```js
 (async function() {
-  await api.startJob('<jobId>');
+  await api.startJob(jobId);
 })();
 ```
 
@@ -130,7 +139,7 @@ Get the status of a job:
 
 ```js
 let status = (async function() {
-  return await api.getJobStatus('<jobId>');
+  return await api.getJobStatus(jobId);
 })();
 ```
 
@@ -138,7 +147,7 @@ Download the output of a completed job:
 
 ```js
 (async function() {
-  await api.downloadJobOutput('<jobId>', 'output.zip');
+  await api.downloadJobOutput(jobId, '/path/to/output.zip');
 })();
 ```
 
