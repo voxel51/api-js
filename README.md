@@ -177,7 +177,7 @@ To view the documentation, open the `docs/index.html` file in your browser.
 ## Copyright
 
 Copyright 2018, Voxel51, LLC<br>
-voxel51.com
+[voxel51.com](https://voxel51.com)
 
 David Hodgson, david@voxel51.com<br>
 Brian Moore, brian@voxel51.com
