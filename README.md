@@ -25,9 +25,9 @@ npm install
 
 ## Sign-up and Authentication
 
-To use the API, you must first create an account at [https://console.voxel51.com](
-https://console.voxel51.com) and download an API token.
-**Keep this token private**. It is your access key to the API.
+To use the API, you must first create an account at
+[https://console.voxel51.com](https://console.voxel51.com) and download an API
+token. **Keep this token private**. It is your access key to the API.
 
 Each API request you make must be authenticated by your token. To activate your
 token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
@@ -40,14 +40,14 @@ export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 Alternatively, you can permanently activate a token with:
 
 ```js
-let voxel51api = require('@voxel51/api');
+let voxel51 = require('@voxel51/api');
 
-voxel51api.auth.activateToken("/path/to/your/api-token.json");
+voxel51.auth.activateToken("/path/to/your/api-token.json");
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
 automatically used in all future sessions. A token can be deactivated via the
-`voxel51api.auth.deactivateToken()` method.
+`voxel51.auth.deactivateToken()` method.
 
 After you have activated an API token, you have full access to the API.
 
@@ -59,9 +59,9 @@ The following examples describe some actions you can take using the API.
 To initialize an API session, issue the following commands:
 
 ```js
-let voxel51api = require('@voxel51/api');
+let voxel51 = require('@voxel51/api');
 
-let api = new voxel51api.API();
+let api = new voxel51.API();
 ```
 
 ### Analytics
@@ -105,8 +105,16 @@ let data = (async function() {
 Upload a job request:
 
 ```js
+// Create a job request
+let jobRequest = new voxel51.jobs.JobRequest('<analyticId>');
+let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<dataId>');
+jobRequest.setInput("<input>", inputPath);
+jobRequest.setParameter("<param1>", val1);
+jobRequest.setParameter("<param2>", val2);
+
+// Upload the request
 let metadata = (async function() {
-  return await api.uploadJobRequest('/path/to/job.json', 'test-job');
+  return await api.uploadJobRequest(jobRequest, 'test-job');
 })();
 ```
 
