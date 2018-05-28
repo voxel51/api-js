@@ -12,8 +12,8 @@ with standard `async/await`-based usage.
 To install the library, first clone it:
 
 ```shell
-git clone https://github.com/voxel51/api-js
-cd api-js
+git clone https://github.com/voxel51/api-javascript
+cd api-javascript
 ```
 
 and then install the package:
