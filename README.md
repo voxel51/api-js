@@ -5,7 +5,7 @@ This package defines a JavaScript client library built on
 
 The library is implemented with
 [ES6-style classes](http://es6-features.org/#ClassDefinition) and uses
-`async`/`await` to deliver Promised-based asynchronous behavior.
+`async`/`await` to deliver Promised-based asynchronous execution.
 
 
 ## Installation
@@ -55,14 +55,17 @@ After you have activated an API token, you have full access to the API.
 
 ## Example Usage
 
-The following examples describe some actions you can take using the API.
-
 To initialize an API session, issue the following commands:
 
 ```js
 let voxel51 = require('@voxel51/api-javascript');
 
 let api = new voxel51.API();
+
+// Convenience function to view JSON outputs
+function pprint(obj) {
+    console.log(JSON.stringify(obj, null, 4));
+}
 ```
 
 ### Analytics
@@ -76,7 +79,11 @@ let analytics = api.listAnalytics();
 Get documentation for an analytic:
 
 ```js
-let doc = api.getAnalyticDoc(analyticId);
+let analyticId = 'XXXXXXXX';
+
+api.getAnalyticDoc(analyticId).then(function(doc) {
+  pprint(doc);
+});
 ```
 
 ### Data
@@ -84,74 +91,87 @@ let doc = api.getAnalyticDoc(analyticId);
 Upload data to the cloud:
 
 ```js
-let details = api.uploadData('/path/to/video.mp4');
+let uploadDataPath = '/path/to/video.mp4';
+
+api.uploadData(uploadDataPath).then(function(metadata) {
+  pprint(metadata);
+});
 ```
 
 List uploaded data:
 
 ```js
-let data = await api.listData();
+api.listData().then(function(data) {
+  pprint(data);
+});
 ```
 
 ### Jobs
 
-Upload a job request:
+List jobs you have created:
 
 ```js
-// Create a job request
+api.listJobs().then(function(metadata) {
+  pprint(metadata);
+});
+```
+
+Create a job request:
+
+```js
 let jobRequest = new voxel51.jobs.JobRequest(analyticId);
 let inputPath = voxel51.jobs.RemoteDataPath.fromDataId(dataId);
 jobRequest.setInput('<input>', inputPath);
 jobRequest.setParameter('<param1>', val1);
 jobRequest.setParameter('<param2>', val2);
 
-// Upload the request
-let metadata = api.uploadJobRequest(jobRequest, 'test-job');
+console.log(jobRequest.toString());
 ```
 
-List the jobs you have created:
+Upload a job request:
 
 ```js
-let jobs = api.listJobs();
+api.uploadJobRequest(jobRequest, 'test-job').then(function(metadata) {
+  pprint(metadata);
+});
+```
+
+Get job details:
+
+```js
+let jobId = 'XXXXXXXX';
+
+api.getJobDetails(jobId).then(function(details) {
+  pprint(details);
+});
 ```
 
 Start a job:
 
 ```js
-api.startJob(jobId);
+api.startJob(jobId).then(function(state) {
+  console.log('Job started!');
+});
 ```
 
-Wait until a job is complete and then download the output:
+Wait until a job is complete and then download its output:
 
 ```js
+let jobOutputPath = '/path/to/output.zip';
+
 api.waitUntilJobCompletes(jobId).then(function() {
-  api.downloadJobOutput(jobId, '/path/to/output.zip');
+  api.downloadJobOutput(jobId, jobOutputPath).then(function() {
+    console.log('Download complete!');
+  });
 });
 ```
 
 Get the status of a job:
 
 ```js
-let status = api.getJobStatus(jobId);
-```
-
-
-## Asynchronous Execution
-
-This library is ES6+ Promise-compliant, so you can use it to interact
-asynchronously with the API server. For example, the following code shows how
-to perform an asynchronous data upload request:
-
-```js
-api.uploadData('/path/to/video.mp4').then(
-  function(metadata) {
-    // do something with the returned metadata
-  }
-).catch(
-  function(error) {
-    throw error;
-  }
-);
+api.getJobStatus(jobId).then(function(status) {
+  pprint(status);
+});
 ```
 
 
