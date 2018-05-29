@@ -70,17 +70,13 @@ let api = new voxel51.API();
 List available analytics:
 
 ```js
-let analytics = (async function() {
-  return await api.listAnalytics();
-})();
+let analytics = api.listAnalytics();
 ```
 
 Get documentation for an analytic:
 
 ```js
-let doc = (async function() {
-  return await api.getAnalyticDoc(analyticId);
-})();
+let doc = api.getAnalyticDoc(analyticId);
 ```
 
 ### Data
@@ -88,17 +84,13 @@ let doc = (async function() {
 Upload data to the cloud:
 
 ```js
-let metadata = (async function() {
-  return await api.uploadData('/path/to/video.mp4');
-})();
+let details = api.uploadData('/path/to/video.mp4');
 ```
 
 List uploaded data:
 
 ```js
-let data = (async function() {
-  return await api.listData();
-})();
+let data = await api.listData();
 ```
 
 ### Jobs
@@ -114,25 +106,19 @@ jobRequest.setParameter('<param1>', val1);
 jobRequest.setParameter('<param2>', val2);
 
 // Upload the request
-let metadata = (async function() {
-  return await api.uploadJobRequest(jobRequest, 'test-job');
-})();
+let metadata = api.uploadJobRequest(jobRequest, 'test-job');
 ```
 
 List the jobs you have created:
 
 ```js
-let jobs = (async function() {
-  return await api.listJobs();
-})();
+let jobs = api.listJobs();
 ```
 
 Start a job:
 
 ```js
-(async function() {
-  await api.startJob(jobId);
-})();
+api.startJob(jobId);
 ```
 
 Get the status of a job:
@@ -143,12 +129,10 @@ let status = (async function() {
 })();
 ```
 
-Download the output of a completed job:
+Get the status of a job:
 
 ```js
-(async function() {
-  await api.downloadJobOutput(jobId, '/path/to/output.zip');
-})();
+let status = api.getJobStatus(jobId);
 ```
 
 
