@@ -121,12 +121,12 @@ Start a job:
 api.startJob(jobId);
 ```
 
-Get the status of a job:
+Wait until a job is complete and then download the output:
 
 ```js
-let status = (async function() {
-  return await api.getJobStatus(jobId);
-})();
+api.waitUntilJobCompletes(jobId).then(function() {
+  api.downloadJobOutput(jobId, '/path/to/output.zip');
+});
 ```
 
 Get the status of a job:
