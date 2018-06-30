@@ -3,16 +3,21 @@
 This package defines a JavaScript client library built on
 [Node.js](https://nodejs.org/en) for accessing the Voxel51 Vision Services API.
 
-The library is asynchronous and ES6+ Promise-compliant, so it is compatible
-with standard `async/await`-based usage.
+The library is implemented with
+[ES6-style classes](http://es6-features.org/#ClassDefinition) and uses
+`async`/`await` to deliver Promised-based asynchronous execution.
 
 
 ## Installation
 
-> @todo update when we publish the npm package
+To install the library, first clone it:
 
-To install the library, navigate to the project's root directory and
-run:
+```shell
+git clone https://github.com/voxel51/api-javascript
+cd api-javascript
+```
+
+and then install the package:
 
 ```shell
 npm install
@@ -21,124 +26,152 @@ npm install
 
 ## Sign-up and Authentication
 
-To use the API, you must first create an account at [https://api.voxel51.com](
-https://api.voxel51.com). Next, download an API authentication token from
-[https://api.voxel51.com/authenticate](https://api.voxel51.com/authenticate).
-**Keep this token private**; it is your access key to the API.
+To use the API, you must first create an account at
+[https://console.voxel51.com](https://console.voxel51.com) and download an API
+token. **Keep this token private**. It is your access key to the API.
 
 Each API request you make must be authenticated by your token. To activate your
 token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
 to your API token file:
 
 ```shell
-export VOXEL51_API_TOKEN="/path/to/your/token.json"
+export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
 Alternatively, you can permanently activate a token with:
 
 ```js
-let voxel51api = require('@voxel51/api');
+let voxel51 = require('@voxel51/api-javascript');
 
-voxel51api.auth.activateToken("/path/to/your/token.json");
+voxel51.auth.activateToken("/path/to/your/api-token.json");
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
 automatically used in all future sessions. A token can be deactivated via the
-`voxel51api.auth.deactivateToken()` method.
+`voxel51.auth.deactivateToken()` method.
 
 After you have activated an API token, you have full access to the API.
 
 
 ## Example Usage
 
-The following examples describe some actions you can take using the API.
-
 To initialize an API session, issue the following commands:
-```js
-let voxel51api = require('@voxel51/api');
 
-let api = new voxel51api.API();
+```js
+let voxel51 = require('@voxel51/api-javascript');
+
+let api = new voxel51.API();
+
+// Convenience function to view JSON outputs
+function pprint(obj) {
+    console.log(JSON.stringify(obj, null, 4));
+}
 ```
 
-### Algorithms
+### Analytics
 
-List available algorithms:
+List available analytics:
+
 ```js
-let algos = (async function() {
-  return await api.listAlgorithms();
-})();
+let analytics = api.listAnalytics();
 ```
 
-Download algorithm documentation:
+Get documentation for an analytic:
+
 ```js
-let doc = (async function() {
-  return await api.getAlgorithmDetails('<algoId>');
-})();
+let analyticId = 'XXXXXXXX';
+
+api.getAnalyticDoc(analyticId).then(function(doc) {
+  pprint(doc);
+});
 ```
 
 ### Data
 
 Upload data to the cloud:
+
 ```js
-let metadata = (async function() {
-  return await api.uploadData('/path/to/video.mp4');
-})();
+let uploadDataPath = '/path/to/video.mp4';
+
+api.uploadData(uploadDataPath).then(function(metadata) {
+  pprint(metadata);
+});
 ```
 
 List uploaded data:
+
 ```js
-let data = (async function() {
-  return await api.listData();
-})();
+api.listData().then(function(data) {
+  pprint(data);
+});
 ```
 
 ### Jobs
 
-Upload a job request:
+List jobs you have created:
+
 ```js
-let metadata = (async function() {
-  return await api.uploadJobRequest('/path/to/job.json', 'test-job');
-})();
+api.listJobs().then(function(metadata) {
+  pprint(metadata);
+});
+```
+
+Create a job request:
+
+```js
+let jobRequest = new voxel51.jobs.JobRequest(analyticId);
+let inputPath = voxel51.jobs.RemoteDataPath.fromDataId(dataId);
+jobRequest.setInput('<input>', inputPath);
+jobRequest.setParameter('<param1>', val1);
+jobRequest.setParameter('<param2>', val2);
+
+console.log(jobRequest.toString());
+```
+
+Upload a job request:
+
+```js
+api.uploadJobRequest(jobRequest, 'test-job').then(function(metadata) {
+  pprint(metadata);
+});
+```
+
+Get job details:
+
+```js
+let jobId = 'XXXXXXXX';
+
+api.getJobDetails(jobId).then(function(details) {
+  pprint(details);
+});
 ```
 
 Start a job:
+
 ```js
-(async function() {
-  await api.startJob('<jobId>');
-})();
+api.startJob(jobId).then(function(state) {
+  console.log('Job started!');
+});
+```
+
+Wait until a job is complete and then download its output:
+
+```js
+let jobOutputPath = '/path/to/output.zip';
+
+api.waitUntilJobCompletes(jobId).then(function() {
+  api.downloadJobOutput(jobId, jobOutputPath).then(function() {
+    console.log('Download complete!');
+  });
+});
 ```
 
 Get the status of a job:
-```js
-let status = (async function() {
-  return await api.getJobStatus('<jobId>');
-})();
-```
-
-Download the output of a completed job:
-```js
-(async function() {
-  await api.downloadJobOutput('<jobId>', 'output.zip');
-})();
-```
-
-
-## Asynchronous Execution
-
-This library is ES6+ Promise-compliant, so you can use it to interact
-asynchronously with the API server. For example, the following code shows how
-to perform an asynchronous data upload request:
 
 ```js
-api.uploadData('/path/to/video.mp4').then(
-  function(metadata) {
-    // do something with the returned metadata
-  }
-).catch(
-  function(error) {
-    throw error;
-  }
-);
+api.getJobStatus(jobId).then(function(status) {
+  pprint(status);
+});
 ```
 
 
@@ -157,7 +190,7 @@ To view the documentation, open the `docs/index.html` file in your browser.
 ## Copyright
 
 Copyright 2018, Voxel51, LLC<br>
-voxel51.com
+[voxel51.com](https://voxel51.com)
 
 David Hodgson, david@voxel51.com<br>
 Brian Moore, brian@voxel51.com
