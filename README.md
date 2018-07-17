@@ -13,8 +13,8 @@ The library is implemented with
 To install the library, first clone it:
 
 ```shell
-git clone https://github.com/voxel51/api-javascript
-cd api-javascript
+git clone https://github.com/voxel51/api-js
+cd api-js
 ```
 
 and then install the package:
@@ -41,7 +41,7 @@ export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 Alternatively, you can permanently activate a token with:
 
 ```js
-let voxel51 = require('@voxel51/api-javascript');
+let voxel51 = require('@voxel51/api-js');
 
 voxel51.auth.activateToken("/path/to/your/api-token.json");
 ```
@@ -58,7 +58,7 @@ After you have activated an API token, you have full access to the API.
 To initialize an API session, issue the following commands:
 
 ```js
-let voxel51 = require('@voxel51/api-javascript');
+let voxel51 = require('@voxel51/api-js');
 
 let api = new voxel51.API();
 
