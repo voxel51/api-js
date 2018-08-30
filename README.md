@@ -119,7 +119,7 @@ api.listJobs().then(function(metadata) {
 Create a job request:
 
 ```js
-let jobRequest = new voxel51.jobs.JobRequest(analyticId);
+let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
 let inputPath = voxel51.jobs.RemoteDataPath.fromDataId(dataId);
 jobRequest.setInput('<input>', inputPath);
 jobRequest.setParameter('<param1>', val1);
