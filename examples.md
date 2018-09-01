@@ -27,7 +27,7 @@ let api = new voxel51.API();
 // Upload data
 let dataId;
 api.uploadData('road.mp4').then(function(metadata) {
-  dataId = metadata.dataId;
+  dataId = metadata.data_id;
 });
 
 // Upload job request
@@ -36,7 +36,7 @@ let jobRequest = new voxel51.jobs.JobRequest('vehicle-detector');
 let remotePath = voxel51.jobs.RemoteDataPath.fromDataId(dataId);
 jobRequest.setInput('video', remotePath);
 api.uploadJobRequest(jobRequest, 'detect-vehicles').then(function(metadata) {
-  jobId = metadata.jodId;
+  jobId = metadata.job_id;
 });
 
 // Run job
