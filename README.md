@@ -38,7 +38,7 @@ to your API token file:
 export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
-Alternatively, you can permanently activate a token with following js code. Run this code in Node js:
+Alternatively, you can permanently activate a token with following `JavaScript` code. Open the `nodejs REPL` and run this code:
 
 ```js
 let voxel51 = require('.');
@@ -55,7 +55,7 @@ After you have activated an API token, you have full access to the API.
 
 ## Example Usage
 
-To initialize an API session, issue the following all  commands in Node js:
+To initialize an API session, issue the following commands in Node js:
 
 ```js
 let voxel51 = require('.');
@@ -70,13 +70,13 @@ function pprint(obj) {
 
 ### Analytics
 
-List all available analytics:
+List available analytics:
 
 ```js
 let analytics = api.listAnalytics();
 ```
 
-Get documentation for an analytic. Asign certain `analyticId` as argument:
+Get documentation for an analytic, where the `analyticId` variable matches the analytic's ID:
 
 ```js
 let analyticId = 'XXXXXXXX';
@@ -88,7 +88,7 @@ api.getAnalyticDoc(analyticId).then(function(doc) {
 
 ### Data
 
-Upload data to the cloud. pass path to the file along with file name as an argument:
+Upload data to the cloud storage, where `uploadDataPath` is the absolute or relative path to the local file:
 
 ```js
 let uploadDataPath = '/path/to/video.mp4';
@@ -98,7 +98,7 @@ api.uploadData(uploadDataPath).then(function(metadata) {
 });
 ```
 
-List all uploaded data:
+List uploaded data:
 
 ```js
 api.listData().then(function(data) {
@@ -116,7 +116,7 @@ api.listJobs().then(function(metadata) {
 });
 ```
 
-Create a job request to run on a data. Pass certain `Analytic-Name(Type)` as `<analytic>`, particular `Data Id` as `dataId`, give data type `video` or `images` as `<input>`,and certain paramter and it's value based on analytic type you choose to run. For more information on `input` and `parameters` refers to `analytic.json`   :
+Create a job request to perform an analytic on a data, where `<analytic>` is the analytic's name, `dataId` is the desired data file's unique ID, and any `<param#>` values are any of the permitted parameters based on the analytic's documentation:
 
 ```js
 let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
