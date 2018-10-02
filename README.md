@@ -38,7 +38,8 @@ to your API token file:
 export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
-Alternatively, you can permanently activate a token with following `JavaScript` code. Open the `nodejs REPL` and run this code:
+Alternatively, you can permanently activate a token with following JavaScript code -
+execute `node` in your shell to open the nodejs REPL and run:
 
 ```js
 let voxel51 = require('.');
