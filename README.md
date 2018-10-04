@@ -38,7 +38,8 @@ to your API token file:
 export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
-Alternatively, you can permanently activate a token with:
+Alternatively, you can permanently activate a token with following JavaScript code -
+execute `node` in your shell to open the nodejs REPL and run:
 
 ```js
 let voxel51 = require('.');
@@ -55,7 +56,7 @@ After you have activated an API token, you have full access to the API.
 
 ## Example Usage
 
-To initialize an API session, issue the following commands:
+To initialize an API session, issue the following commands in Node js:
 
 ```js
 let voxel51 = require('.');
@@ -76,7 +77,7 @@ List available analytics:
 let analytics = api.listAnalytics();
 ```
 
-Get documentation for an analytic:
+Get documentation for an analytic, where the `analyticId` variable matches the analytic's ID:
 
 ```js
 let analyticId = 'XXXXXXXX';
@@ -88,7 +89,7 @@ api.getAnalyticDoc(analyticId).then(function(doc) {
 
 ### Data
 
-Upload data to the cloud:
+Upload data to the cloud storage, where `uploadDataPath` is the absolute or relative path to the local file:
 
 ```js
 let uploadDataPath = '/path/to/video.mp4';
@@ -116,7 +117,7 @@ api.listJobs().then(function(metadata) {
 });
 ```
 
-Create a job request:
+Create a job request to perform an analytic on a data, where `<analytic>` is the analytic's name, `dataId` is the desired data file's unique ID, and any `<param#>` values are any of the permitted parameters based on the analytic's documentation:
 
 ```js
 let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
@@ -193,4 +194,5 @@ Copyright 2018, Voxel51, LLC<br>
 [voxel51.com](https://voxel51.com)
 
 David Hodgson, david@voxel51.com<br>
-Brian Moore, brian@voxel51.com
+Brian Moore, brian@voxel51.com<br>
+Hima Patel, hima@voxel51.com
