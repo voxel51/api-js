@@ -38,8 +38,8 @@ to your API token file:
 export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
-Alternatively, you can permanently activate a token with following JavaScript code -
-execute `node` in your shell to open the nodejs REPL and run:
+Alternatively, you can permanently activate a token with following JavaScript
+code (from the Node REPL):
 
 ```js
 let voxel51 = require('.');
@@ -77,9 +77,10 @@ List available analytics:
 let analytics = api.listAnalytics();
 ```
 
-Get documentation for an analytic, where the `analyticId` variable matches the analytic's ID:
+Get documentation for the analytic with the given ID:
 
 ```js
+// ID of the analytic
 let analyticId = 'XXXXXXXX';
 
 api.getAnalyticDoc(analyticId).then(function(doc) {
@@ -89,9 +90,10 @@ api.getAnalyticDoc(analyticId).then(function(doc) {
 
 ### Data
 
-Upload data to the cloud storage, where `uploadDataPath` is the absolute or relative path to the local file:
+Upload data to the cloud storage:
 
 ```js
+// Local path to the data
 let uploadDataPath = '/path/to/video.mp4';
 
 api.uploadData(uploadDataPath).then(function(metadata) {
@@ -117,11 +119,13 @@ api.listJobs().then(function(metadata) {
 });
 ```
 
-Create a job request to perform an analytic on a data, where `<analytic>` is the analytic's name, `dataId` is the desired data file's unique ID, and any `<param#>` values are any of the permitted parameters based on the analytic's documentation:
+Create a job request to perform an analytic on a data, where `<analytic>` is
+the name of the analytic to run, `<data-id>` is the ID of the data to process,
+and any `<param#>` values are set as necessary to configre the analytic:
 
 ```js
 let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
-let inputPath = voxel51.jobs.RemoteDataPath.fromDataId(dataId);
+let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<data-id>');
 jobRequest.setInput('<input>', inputPath);
 jobRequest.setParameter('<param1>', val1);
 jobRequest.setParameter('<param2>', val2);
@@ -132,24 +136,17 @@ console.log(jobRequest.toString());
 Upload a job request:
 
 ```js
-api.uploadJobRequest(jobRequest, 'test-job').then(function(metadata) {
+api.uploadJobRequest(jobRequest, '<job-name>').then(function(metadata) {
   pprint(metadata);
-});
-```
-
-Get job details:
-
-```js
-let jobId = 'XXXXXXXX';
-
-api.getJobDetails(jobId).then(function(details) {
-  pprint(details);
 });
 ```
 
 Start a job:
 
 ```js
+// ID of the job
+let jobId = 'XXXXXXXX';
+
 api.startJob(jobId).then(function(state) {
   console.log('Job started!');
 });
@@ -158,6 +155,7 @@ api.startJob(jobId).then(function(state) {
 Wait until a job is complete and then download its output:
 
 ```js
+// Local path to which to download the output
 let jobOutputPath = '/path/to/output.zip';
 
 api.waitUntilJobCompletes(jobId).then(function() {
@@ -195,5 +193,4 @@ Copyright 2018, Voxel51, LLC<br>
 [voxel51.com](https://voxel51.com)
 
 David Hodgson, david@voxel51.com<br>
-Brian Moore, brian@voxel51.com<br>
-Hima Patel, hima@voxel51.com
+Brian Moore, brian@voxel51.com
