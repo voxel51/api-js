@@ -4,7 +4,7 @@
         "dictionaries": ["jsdoc"]
     },
     "source": {
-        "include": ["lib", "README.md"],
+        "include": ["lib/", "README.md"],
         "includePattern": ".js$",
         "excludePattern": "(node_modules/|docs)"
     },
@@ -16,9 +16,9 @@
         "disableSort": true
     },
     "opts": {
-        "template": "./node_modules/jsdoc-template",
+        "template": "node_modules/jsdoc-template",
         "encoding": "utf8",
         "recurse": true,
-        "destination": "./docs/"
+        "destination": "docs/build"
     }
 }

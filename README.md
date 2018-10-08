@@ -182,10 +182,11 @@ This project uses [JSDoc](https://github.com/jsdoc3/jsdoc) to generate its
 documentation from source. To generate the documentation, run:
 
 ```shell
-bash generate_docs.bash
+bash docs/generate_docs.bash
 ```
 
-To view the documentation, open the `docs/index.html` file in your browser.
+To view the documentation, open the `docs/build/index.html` file in your
+browser.
 
 
 ## Copyright
