@@ -20,7 +20,7 @@ cd api-js
 and then install the package:
 
 ```shell
-npm install
+npm ci
 ```
 
 
