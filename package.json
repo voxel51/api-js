@@ -12,6 +12,7 @@
         "jsdoc-template": "git://github.com/braintree/jsdoc-template.git",
         "mkdirp": "^0.5.1",
         "npm": "^6.4.1",
+        "qs": "^6.5.2",
         "request": "^2.88.0"
     },
     "devDependencies": {
