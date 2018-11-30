@@ -111,8 +111,8 @@ Upload data to the cloud storage:
 // Local path to the data
 let uploadDataPath = '/path/to/video.mp4';
 
-api.uploadData(uploadDataPath).then(function(metadata) {
-  pprint(metadata);
+api.uploadData(uploadDataPath).then(function(data) {
+  pprint(data);
 });
 ```
 
@@ -129,8 +129,8 @@ api.listData().then(function(data) {
 List jobs you have created:
 
 ```js
-api.listJobs().then(function(metadata) {
-  pprint(metadata);
+api.listJobs().then(function(jobs) {
+  pprint(jobs);
 });
 ```
 
@@ -151,8 +151,8 @@ console.log(jobRequest.toString());
 Upload a job request:
 
 ```js
-api.uploadJobRequest(jobRequest, '<job-name>').then(function(metadata) {
-  pprint(metadata);
+api.uploadJobRequest(jobRequest, '<job-name>').then(function(job) {
+  pprint(job);
 });
 ```
 
