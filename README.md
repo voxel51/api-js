@@ -87,7 +87,9 @@ function pprint(obj) {
 List available analytics:
 
 ```js
-let analytics = api.listAnalytics();
+api.listAnalytics().then(function(analytics) {
+  pprint(analytics);
+});
 ```
 
 Get documentation for the analytic with the given ID:
