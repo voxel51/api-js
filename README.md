@@ -178,6 +178,117 @@ api.getJobStatus(jobId).then(function(status) {
 ```
 
 
+## Application Quickstart
+
+This section provides a brief guide to using the Vision Services API with your
+application admin account.
+
+### Sign-up and Authentication
+
+To use the API with your application, you must first download an API token from
+your application admin account at https://console.voxel51.com/admin and
+download an API token.
+
+> Keep your API token private; it is your access key to the API.
+
+Each API request you make must be authenticated by your application token. To
+activate your application token, set the `VOXEL51_APP_TOKEN` environment
+variable in your shell to point to your API token file:
+
+```shell
+export VOXEL51_APP_TOKEN="/path/to/your/app-token.json"
+```
+
+Alternatively, you can permanently activate an application token by executing
+the following commands:
+
+```js
+let voxel51 = require('.');
+
+voxel51.appsAuth.activateApplicationToken('/path/to/your/app-token.json');
+```
+
+In the latter case, your token is copied to `~/.voxel51/` and will be
+automatically used in all future sessions. An application token can be
+deactivated via the `voxel51.appsAuth.deactivateApplicationToken()` method.
+
+After you have activated an application API token, you have full access to the
+API.
+
+### Creating an Application API Session
+
+To initialize an API session for your application, issue the following
+commands:
+
+```js
+let voxel51 = require('.');
+
+let api = new voxel51.ApplicationAPI();
+```
+
+### User Management
+
+The application API provides methods to manage the users of your application.
+
+For example, you can list the current users of your application:
+
+```js
+api.listUsers().then(function(users) {
+  // Use users
+});
+```
+
+Create a new user:
+
+```py
+api.createUser('<username>');
+```
+
+And update the usage limits of a user:
+
+```py
+// The new limits to apply for the user
+limits = {
+    <limit-name>: <limit-value>,
+    ...
+}
+
+api.updateUserUsageLimits('<username>', limits);
+```
+
+### Performing User Actions
+
+To perform actions for a user of your application, you must first activate the
+user:
+
+```py
+// Activate an application user
+api.withUser('<username>');
+```
+
+With a user activated, all subsequent API requests will be applied to that
+user. To deactivate the user, use the `api.exitUser()` method.
+
+For example, you can upload data for the user:
+
+```js
+// Local path to the data
+let dataPath = '/path/to/video.mp4';
+
+api.uploadData(dataPath);
+```
+
+And run a job on the user's data:
+
+```js
+let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
+let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<data-id>');
+jobRequest.setInput('<input>', inputPath);
+jobRequest.setParameter('<param>', val);
+api.uploadJobRequest(jobRequest, '<job-name>', true);
+```
+
+
 ## Generating Documentation
 
 This project uses [JSDoc](https://github.com/jsdoc3/jsdoc) to generate its
