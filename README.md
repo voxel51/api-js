@@ -240,13 +240,13 @@ api.listUsers().then(function(users) {
 
 Create a new user:
 
-```py
+```js
 api.createUser('<username>');
 ```
 
 And update the usage limits of a user:
 
-```py
+```js
 // The new limits to apply for the user
 limits = {
     <limit-name>: <limit-value>,
@@ -261,7 +261,7 @@ api.updateUserUsageLimits('<username>', limits);
 To perform actions for a user of your application, you must first activate the
 user:
 
-```py
+```js
 // Activate an application user
 api.withUser('<username>');
 ```
