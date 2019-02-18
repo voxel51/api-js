@@ -70,17 +70,12 @@ After you have activated an API token, you have full access to the API.
 
 ### Creating an API Session
 
-To initialize an API session, issue the following commands in Node js:
+To initialize an API session, issue the following commands:
 
 ```js
 let voxel51 = require('.');
 
 let api = new voxel51.API();
-
-// Convenience function to view JSON outputs
-function pprint(obj) {
-  console.log(JSON.stringify(obj, null, 4));
-}
 ```
 
 ### Analytics
@@ -89,7 +84,7 @@ List available analytics:
 
 ```js
 api.listAnalytics().then(function(analytics) {
-  pprint(analytics);
+  // Use analytics
 });
 ```
 
@@ -100,7 +95,7 @@ Get documentation for the analytic with the given ID:
 let analyticId = 'XXXXXXXX';
 
 api.getAnalyticDoc(analyticId).then(function(doc) {
-  pprint(doc);
+  // Use doc
 });
 ```
 
@@ -110,18 +105,16 @@ Upload data to the cloud storage:
 
 ```js
 // Local path to the data
-let uploadDataPath = '/path/to/video.mp4';
+let dataPath = '/path/to/video.mp4';
 
-api.uploadData(uploadDataPath).then(function(data) {
-  pprint(data);
-});
+api.uploadData(dataPath);
 ```
 
 List uploaded data:
 
 ```js
 api.listData().then(function(data) {
-  pprint(data);
+  // Use data
 });
 ```
 
@@ -131,7 +124,7 @@ List jobs you have created:
 
 ```js
 api.listJobs().then(function(jobs) {
-  pprint(jobs);
+  // Use jobs
 });
 ```
 
@@ -152,9 +145,7 @@ console.log(jobRequest.toString());
 Upload a job request:
 
 ```js
-api.uploadJobRequest(jobRequest, '<job-name>').then(function(job) {
-  pprint(job);
-});
+api.uploadJobRequest(jobRequest, '<job-name>');
 ```
 
 Start a job:
@@ -163,19 +154,17 @@ Start a job:
 // ID of the job
 let jobId = 'XXXXXXXX';
 
-api.startJob(jobId).then(function(state) {
-  console.log('Job started!');
-});
+api.startJob(jobId);
 ```
 
 Wait until a job is complete and then download its output:
 
 ```js
 // Local path to which to download the output
-let jobOutputPath = '/path/to/output.zip';
+let outputPath = '/path/to/output.zip';
 
 api.waitUntilJobCompletes(jobId).then(function() {
-  api.downloadJobOutput(jobId, jobOutputPath).then(function() {
+  api.downloadJobOutput(jobId, outputPath).then(function() {
     console.log('Download complete!');
   });
 });
@@ -185,7 +174,7 @@ Get the status of a job:
 
 ```js
 api.getJobStatus(jobId).then(function(status) {
-  pprint(status);
+  // Use status
 });
 ```
 
