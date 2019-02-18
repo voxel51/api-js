@@ -28,21 +28,22 @@ npm ci
 ## Documentation
 
 For full documentation of the Voxel51 Vision Services API, including usage of
-this client library, see
-[https://voxel51.com/docs/api](https://voxel51.com/docs/api).
+this client library, see https://console.voxel51.com/docs/api.
 
 To learn how to use this client library to create and run jobs that execute
 each of the analytics exposed on the Voxel51 Vision Services Platform, see
-[https://voxel51.com/docs/analytics](https://voxel51.com/docs/analytics).
+https://console.voxel51.com/docs/analytics.
 
 
-## Quickstart
+## User Quickstart
+
+This section provides a brief guide to using the Vision Services API with your
+user account.
 
 ### Sign-up and Authentication
 
-To use the API, you must first create an account at
-[https://console.voxel51.com](https://console.voxel51.com) and download an API
-token. **Keep this token private**. It is your access key to the API.
+To use the API, you must first create an account at https://console.voxel51.com
+and download an API token.
 
 Each API request you make must be authenticated by your token. To activate your
 token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
@@ -52,13 +53,13 @@ to your API token file:
 export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
 ```
 
-Alternatively, you can permanently activate a token with following JavaScript
-code (from the Node REPL):
+Alternatively, you can permanently activate a token by executing the following
+commands:
 
 ```js
 let voxel51 = require('.');
 
-voxel51.auth.activateToken("/path/to/your/api-token.json");
+voxel51.auth.activateToken('/path/to/your/api-token.json');
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
