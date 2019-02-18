@@ -248,7 +248,7 @@ And update the usage limits of a user:
 
 ```js
 // The new limits to apply for the user
-limits = {
+let limits = {
     <limit-name>: <limit-value>,
     ...
 }
