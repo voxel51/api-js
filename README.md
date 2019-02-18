@@ -304,5 +304,5 @@ browser.
 
 ## Copyright
 
-Copyright 2018-2019, Voxel51, Inc.<br>
+Copyright 2017-2019, Voxel51, Inc.<br>
 [voxel51.com](https://voxel51.com)
