@@ -130,14 +130,13 @@ api.listJobs().then(function(jobs) {
 
 Create a job request to perform an analytic on a data, where `<analytic>` is
 the name of the analytic to run, `<data-id>` is the ID of the data to process,
-and any `<param#>` values are set as necessary to configre the analytic:
+and any `<param>` values are set as necessary to configre the analytic:
 
 ```js
 let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
 let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<data-id>');
 jobRequest.setInput('<input>', inputPath);
-jobRequest.setParameter('<param1>', val1);
-jobRequest.setParameter('<param2>', val2);
+jobRequest.setParameter('<param>', val);
 
 console.log(jobRequest.toString());
 ```
