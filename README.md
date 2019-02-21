@@ -238,23 +238,12 @@ api.listUsers().then(function(users) {
 });
 ```
 
-Create a new user:
+and create a new user:
 
 ```js
 api.createUser('<username>');
 ```
 
-And update the usage limits of a user:
-
-```js
-// The new limits to apply for the user
-let limits = {
-    <limit-name>: <limit-value>,
-    ...
-}
-
-api.updateUserUsageLimits('<username>', limits);
-```
 
 ### Performing User Actions
 
