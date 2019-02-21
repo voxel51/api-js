@@ -244,7 +244,6 @@ and create a new user:
 api.createUser('<username>');
 ```
 
-
 ### Performing User Actions
 
 To perform actions for a user of your application, you must first activate the
