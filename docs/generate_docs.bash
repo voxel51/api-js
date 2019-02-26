@@ -13,3 +13,4 @@ echo "**** Generating documentation"
 node_modules/.bin/jsdoc -c docs/jsdoc.json
 
 echo "**** Documentation complete"
+printf "To view the docs, run:\n\nopen docs/build/index.html\n\n"
