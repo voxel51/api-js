@@ -12,7 +12,7 @@
         "plugins/markdown"
     ],
     "templates": {
-        "referenceTitle": "Vision Services API",
+        "referenceTitle": "Voxel51 JavaScript Client Library",
         "disableSort": true
     },
     "opts": {
