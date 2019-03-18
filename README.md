@@ -276,6 +276,35 @@ jobRequest.setParameter('<param>', val);
 api.uploadJobRequest(jobRequest, '<job-name>', true);
 ```
 
+## Improving Request Efficiency
+
+Common workflows may involve the large-scale upload, initiation, and download
+of large numbers of data and jobs. While true threads are possible with `nodejs`,
+a simple intermediate step that can help improve run-times is the use of
+[`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all).
+
+Take, for example, uploading a large number of data to the platform.
+
+```js
+// in async scope
+const dataPaths = [
+  'path_to_file_1',
+  'path_to_file_2',
+  ...
+];
+
+const uploadedDataObjects = await Promise.all(
+  dataPaths.map(api.uploadData)
+);
+```
+
+> Note: There are known issues with passing the client library function calls
+> as parameters to different `this` call contexts. Binding the function in
+> the correct context may solve this issue.
+
+This strategy can be used whenever a list of objects are to be run with the
+same command and **order of operation is not important**.
+
 
 ## Generating Documentation
 
