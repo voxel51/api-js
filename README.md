@@ -276,34 +276,41 @@ jobRequest.setParameter('<param>', val);
 api.uploadJobRequest(jobRequest, '<job-name>', true);
 ```
 
+
 ## Improving Request Efficiency
 
-Common workflows may involve the large-scale upload, initiation, and download
-of large numbers of data and jobs. While true threads are possible with `nodejs`,
-a simple intermediate step that can help improve run-times is the use of
-[`Promise.all`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all).
+A common pattern when interacting with the platform is to perform an operation
+to a list of data or jobs. In such cases, you can dramatically increase the
+efficiency of your code by taking advantage of the Promise-based nature of this
+library.
 
-Take, for example, uploading a large number of data to the platform.
+For example, the following code will start all unstarted jobs on the platform,
+using `Promise.all` to wait for the asynchronous requests to complete:
 
 ```js
-// in async scope
-const dataPaths = [
-  'path_to_file_1',
-  'path_to_file_2',
-  ...
-];
+let voxel51 = require('.');
 
-const uploadedDataObjects = await Promise.all(
-  dataPaths.map(api.uploadData)
-);
+async function startAllJobs(api) {
+  // Get jobs
+  let jobsQuery = new voxel51.query.JobsQuery().addFields(['id', 'state']);
+  let result = await api.queryJobs(jobsQuery);
+  let jobs = result.jobs;
+
+  // Start all unstarted jobs
+  let promises = [];
+  jobs.forEach(function(job) {
+    if (job.state === voxel51.jobs.JobState.READY) {
+      promises.push(api.startJob(jod.id));
+    }
+  });
+
+  return Promise.all(promises);
+}
+
+let api = new voxel51.API();
+
+startAllJobs(api);
 ```
-
-> Note: There are known issues with passing the client library function calls
-> as parameters to different `this` call contexts. Binding the function in
-> the correct context may solve this issue.
-
-This strategy can be used whenever a list of objects are to be run with the
-same command and **order of operation is not important**.
 
 
 ## Generating Documentation
