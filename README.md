@@ -277,6 +277,42 @@ api.uploadJobRequest(jobRequest, '<job-name>', true);
 ```
 
 
+## Improving Request Efficiency
+
+A common pattern when interacting with the platform is to perform an operation
+to a list of data or jobs. In such cases, you can dramatically increase the
+efficiency of your code by taking advantage of the Promise-based nature of this
+library.
+
+For example, the following code will start all unstarted jobs on the platform,
+using `Promise.all` to wait for the asynchronous requests to complete:
+
+```js
+let voxel51 = require('.');
+
+async function startAllJobs(api) {
+  // Get jobs
+  let jobsQuery = new voxel51.query.JobsQuery().addFields(['id', 'state']);
+  let result = await api.queryJobs(jobsQuery);
+  let jobs = result.jobs;
+
+  // Start all unstarted jobs
+  let promises = [];
+  jobs.forEach(function(job) {
+    if (job.state === voxel51.jobs.JobState.READY) {
+      promises.push(api.startJob(jod.id));
+    }
+  });
+
+  return Promise.all(promises);
+}
+
+let api = new voxel51.API();
+
+startAllJobs(api);
+```
+
+
 ## Generating Documentation
 
 This project uses [JSDoc](https://github.com/jsdoc3/jsdoc) to generate its
