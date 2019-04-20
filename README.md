@@ -3,6 +3,8 @@
 A JavaScript client library built on [Node.js](https://nodejs.org/en) for
 interacting with the Voxel51 Platform.
 
+Available at [https://github.com/voxel51/api-js](https://github.com/voxel51/api-js).
+
 The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
 and uses `async`/`await` to deliver Promised-based asynchronous execution.
 
