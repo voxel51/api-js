@@ -12,7 +12,7 @@
         "plugins/markdown"
     ],
     "templates": {
-        "referenceTitle": "Voxel51 JavaScript Client Library",
+        "referenceTitle": "Voxel51 Platform API JavaScript Client Library",
         "disableSort": true
     },
     "opts": {
