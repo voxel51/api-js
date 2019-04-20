@@ -1,7 +1,7 @@
-# Voxel51 API JavaScript Client Library
+# Voxel51 Platform API JavaScript Client Library
 
 A JavaScript client library built on [Node.js](https://nodejs.org/en) for
-interacting with the Voxel51 Vision Services Platform.
+interacting with the Voxel51 Platform.
 
 The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
 and uses `async`/`await` to deliver Promised-based asynchronous execution.
@@ -27,18 +27,18 @@ npm ci
 
 ## Documentation
 
-For full documentation of the Voxel51 Vision Services API, including usage of
-this client library, see the [API Documentation](https://console.voxel51.com/docs/api).
+For full documentation of the Voxel51 Platform API, including usage of this
+client library, see the [API Documentation](https://console.voxel51.com/docs/api).
 
 To learn how to use this client library to create and run jobs that execute
-each of the analytics exposed on the Voxel51 Vision Services Platform, see
-the [Analytics Documentation](https://console.voxel51.com/docs/analytics).
+each of the analytics exposed on the Voxel51 Platform, see the
+[Analytics Documentation](https://console.voxel51.com/docs/analytics).
 
 
 ## User Quickstart
 
-This section provides a brief guide to using the Vision Services API with your
-user account.
+This section provides a brief guide to using the Platform API with your user
+account.
 
 ### Sign-up and Authentication
 
@@ -180,7 +180,7 @@ api.getJobStatus(jobId).then(function(status) {
 
 ## Application Quickstart
 
-This section provides a brief guide to using the Vision Services API with your
+This section provides a brief guide to using the Platform API with your
 application.
 
 ### Sign-up and Authentication
