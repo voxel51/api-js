@@ -61,12 +61,12 @@ commands:
 ```js
 let voxel51 = require('.');
 
-voxel51.auth.activateToken('/path/to/your/api-token.json');
+voxel51.users.auth.activateToken('/path/to/your/api-token.json');
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
 automatically used in all future sessions. A token can be deactivated via the
-`voxel51.auth.deactivateToken()` method.
+`voxel51.users.auth.deactivateToken()` method.
 
 After you have activated an API token, you have full access to the API.
 
@@ -77,7 +77,7 @@ To initialize an API session, issue the following commands:
 ```js
 let voxel51 = require('.');
 
-let api = new voxel51.API();
+let api = new voxel51.users.api.API();
 ```
 
 ### Analytics
@@ -135,8 +135,8 @@ the name of the analytic to run, `<data-id>` is the ID of the data to process,
 and any `<param>` values are set as necessary to configre the analytic:
 
 ```js
-let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
-let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<data-id>');
+let jobRequest = new voxel51.users.jobs.JobRequest('<analytic>');
+let inputPath = voxel51.users.jobs.RemoteDataPath.fromDataId('<data-id>');
 jobRequest.setInput('<input>', inputPath);
 jobRequest.setParameter('<param>', val);
 
@@ -207,12 +207,12 @@ the following commands:
 ```js
 let voxel51 = require('.');
 
-voxel51.appsAuth.activateApplicationToken('/path/to/your/app-token.json');
+voxel51.apps.auth.activateApplicationToken('/path/to/your/app-token.json');
 ```
 
 In the latter case, your token is copied to `~/.voxel51/` and will be
 automatically used in all future sessions. An application token can be
-deactivated via the `voxel51.appsAuth.deactivateApplicationToken()` method.
+deactivated via the `voxel51.apps.auth.deactivateApplicationToken()` method.
 
 After you have activated an application API token, you have full access to the
 API.
@@ -225,7 +225,7 @@ commands:
 ```js
 let voxel51 = require('.');
 
-let api = new voxel51.ApplicationAPI();
+let api = new voxel51.apps.api.ApplicationAPI();
 ```
 
 ### User Management
@@ -271,8 +271,8 @@ api.uploadData(dataPath);
 And run a job on the user's data:
 
 ```js
-let jobRequest = new voxel51.jobs.JobRequest('<analytic>');
-let inputPath = voxel51.jobs.RemoteDataPath.fromDataId('<data-id>');
+let jobRequest = new voxel51.users.jobs.JobRequest('<analytic>');
+let inputPath = voxel51.users.jobs.RemoteDataPath.fromDataId('<data-id>');
 jobRequest.setInput('<input>', inputPath);
 jobRequest.setParameter('<param>', val);
 api.uploadJobRequest(jobRequest, '<job-name>', true);
@@ -294,14 +294,15 @@ let voxel51 = require('.');
 
 async function startAllJobs(api) {
   // Get jobs
-  let jobsQuery = new voxel51.query.JobsQuery().addFields(['id', 'state']);
+  let jobsQuery = new voxel51.users.query.JobsQuery().addFields(
+    ['id', 'state']);
   let result = await api.queryJobs(jobsQuery);
   let jobs = result.jobs;
 
   // Start all unstarted jobs
   let promises = [];
   jobs.forEach(function(job) {
-    if (job.state === voxel51.jobs.JobState.READY) {
+    if (job.state === voxel51.users.jobs.JobState.READY) {
       promises.push(api.startJob(jod.id));
     }
   });
@@ -309,7 +310,7 @@ async function startAllJobs(api) {
   return Promise.all(promises);
 }
 
-let api = new voxel51.API();
+let api = new voxel51.users.api.API();
 
 startAllJobs(api);
 ```
