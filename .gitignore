@@ -1,8 +1,6 @@
 
 .DS_Store
-.eslintrc.js
 
-!lib/
 docs/build/
 
 node_modules/
