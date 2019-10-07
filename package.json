@@ -6,13 +6,14 @@
     "license": "BSD 4-clause",
     "main": "./lib/index.js",
     "scripts": {
-        "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
+        "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json",
+        "lint": "npx eslint 'lib/**/*.js'"
     },
     "dependencies": {
         "auto-bind": "^2.0.0",
         "jsdoc-template": "git://github.com/braintree/jsdoc-template.git",
         "mkdirp": "^0.5.1",
-        "npm": "^6.8.0",
+        "npm": "^6.11.3",
         "qs": "^6.6.0",
         "request": "^2.88.0"
     },
@@ -22,7 +23,7 @@
         "eslint": "^5.15.3",
         "eslint-config-google": "^0.9.1",
         "ink-docstrap": "^1.3.2",
-        "jsdoc": "^3.5.5",
+        "jsdoc": "^3.6.3",
         "mocha": "^5.2.0",
         "sinon": "^4.5.0"
     }
