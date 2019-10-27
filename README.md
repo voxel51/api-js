@@ -292,10 +292,13 @@ using `Promise.all` to wait for the asynchronous requests to complete:
 ```js
 let voxel51 = require('.');
 
+let api = new voxel51.users.api.API();
+
 async function startAllJobs(api) {
-  // Get jobs
-  let jobsQuery = new voxel51.users.query.JobsQuery().addFields(
-    ['id', 'state']);
+  // Get all unarchived jobs
+  let jobsQuery = (new voxel51.users.query.JobsQuery()
+    .addAllFields()
+    .addSearch('archived', false));
   let result = await api.queryJobs(jobsQuery);
   let jobs = result.jobs;
 
@@ -303,14 +306,12 @@ async function startAllJobs(api) {
   let promises = [];
   jobs.forEach(function(job) {
     if (job.state === voxel51.users.jobs.JobState.READY) {
-      promises.push(api.startJob(jod.id));
+      promises.push(api.startJob(job.id));
     }
   });
 
   return Promise.all(promises);
 }
-
-let api = new voxel51.users.api.API();
 
 startAllJobs(api);
 ```
