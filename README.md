@@ -294,7 +294,7 @@ let voxel51 = require('.');
 
 let api = new voxel51.users.api.API();
 
-async function startAllJobs(api) {
+async function startAllJobs() {
   // Get all unarchived jobs
   let jobsQuery = (new voxel51.users.query.JobsQuery()
     .addAllFields()
@@ -310,10 +310,10 @@ async function startAllJobs(api) {
     }
   });
 
-  return Promise.all(promises);
+  Promise.all(promises);
 }
 
-startAllJobs(api);
+await startAllJobs();
 ```
 
 
