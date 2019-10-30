@@ -286,8 +286,38 @@ to a list of data or jobs. In such cases, you can dramatically increase the
 efficiency of your code by taking advantage of the Promise-based nature of this
 library.
 
-For example, the following code will start all unstarted jobs on the platform,
-using `Promise.all` to wait for the asynchronous requests to complete:
+For example, the following code will run VehicleSense on a list of videos using
+`Promise.all` to wait for the asynchronous requests to complete:
+
+```js
+let voxel51 = require('.');
+
+let api = new voxel51.users.api.API();
+
+async function runVehicleSense(paths) {
+  // Upload all data
+  let allData = await Promise.all(paths.map(api.uploadData));
+
+  // Run VehicleSense jobs
+  let promises = [];
+  allData.forEach(function(data) {
+    let jobRequest = new voxel51.users.jobs.JobRequest('voxel51/vehicle-sense');
+    let remotePath = voxel51.users.jobs.RemoteDataPath.fromDataId(data.id);
+    jobRequest.setInput('video', remotePath);
+    let jobName = `vehicle-sense-${data.name}`;
+    promises.push(api.uploadJobRequest(jobRequest, jobName, true));
+  });
+
+  return await Promise.all(promises);
+}
+
+// Run VehicleSense on all videos
+let paths = ['1.mp4', '2.mp4', '3.mp4', ...];
+let jobs = await runVehicleSense(paths);
+```
+
+Or, the following code will start all unstarted jobs on the platform, using
+`Promise.all` to wait for the asynchronous requests to complete:
 
 ```js
 let voxel51 = require('.');
