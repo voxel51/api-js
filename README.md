@@ -20,10 +20,10 @@ git clone https://github.com/voxel51/api-js
 cd api-js
 ```
 
-and then install the package:
+and then run the install script:
 
 ```shell
-npm ci
+bash install.bash
 ```
 
 
