@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Generates JavaScript client library documentation.
+# Generates documentation for the @voxel51/api-js package.
 #
 # Usage:
 #   bash docs/generate_docs.bash
