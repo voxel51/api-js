@@ -15,7 +15,8 @@
         "mkdirp": "^0.5.1",
         "npm": "^6.11.3",
         "qs": "^6.6.0",
-        "request": "^2.88.0"
+        "request": "^2.88.0",
+        "url-join": "^4.0.1"
     },
     "devDependencies": {
         "chai": "^4.2.0",
