@@ -13,7 +13,7 @@
         "auto-bind": "^2.0.0",
         "jsdoc-template": "git://github.com/braintree/jsdoc-template.git",
         "mkdirp": "^0.5.1",
-        "npm": "^6.11.3",
+        "npm": "^6.13.4",
         "qs": "^6.6.0",
         "request": "^2.88.0",
         "url-join": "^4.0.1"
