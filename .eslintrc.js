@@ -119,7 +119,7 @@ module.exports = {
       tabWidth: 2,
       ignoreUrls: true,
     }],
-    'new-cap': 1,
+    'new-cap': [1, {capIsNewExceptionPattern: 'JSON'}],
     'no-array-constructor': 2,
     'no-mixed-spaces-and-tabs': 2, // eslint:recommended
     'no-multiple-empty-lines': [2, {max: 2}],
