@@ -1,12 +1,12 @@
 # Voxel51 Platform API JavaScript Client Library
 
 A JavaScript client library built on [Node.js](https://nodejs.org/en) for
-interacting with the Voxel51 Platform.
-
-Available at [https://github.com/voxel51/api-js](https://github.com/voxel51/api-js).
+the Voxel51 Platform.
 
 The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
 and uses `async`/`await` to deliver Promised-based asynchronous execution.
+
+Available at [https://github.com/voxel51/api-js](https://github.com/voxel51/api-js).
 
 <img src="https://drive.google.com/uc?id=1j0S8pLsopAqF1Ik3rf-CdyAIU4kA0sOP" alt="voxel51-logo.png" width="40%"/>
 
@@ -17,12 +17,12 @@ To install the library, first clone it:
 
 ```shell
 git clone https://github.com/voxel51/api-js
-cd api-js
 ```
 
 and then run the install script:
 
 ```shell
+cd api-js
 bash install.bash
 ```
 
@@ -36,11 +36,14 @@ To learn how to use this client library to create and run jobs that execute
 each of the analytics exposed on the Voxel51 Platform, see the
 [Analytics Documentation](https://voxel51.com/docs/analytics).
 
+For more information about using this client library to operate an application
+on the Voxel51 Platform, see the [Applications Quickstart](APPLICATIONS).
 
-## User Quickstart
 
-This section provides a brief guide to using the Platform API with your user
-account.
+## Quickstart
+
+This section provides a brief guide to using the Platform API with this client
+library.
 
 ### Sign-up and Authentication
 
@@ -52,7 +55,7 @@ token, set the `VOXEL51_API_TOKEN` environment variable in your shell to point
 to your API token file:
 
 ```shell
-export VOXEL51_API_TOKEN="/path/to/your/api-token.json"
+export VOXEL51_API_TOKEN=/path/to/your/api-token.json
 ```
 
 Alternatively, you can permanently activate a token by executing the following
@@ -103,6 +106,14 @@ api.getAnalyticDoc(analyticId).then(function(doc) {
 
 ### Data
 
+List uploaded data:
+
+```js
+api.listData().then(function(data) {
+  // Use data
+});
+```
+
 Upload data to the cloud storage:
 
 ```js
@@ -110,14 +121,6 @@ Upload data to the cloud storage:
 let dataPath = '/path/to/video.mp4';
 
 api.uploadData(dataPath);
-```
-
-List uploaded data:
-
-```js
-api.listData().then(function(data) {
-  // Use data
-});
 ```
 
 ### Jobs
@@ -132,13 +135,13 @@ api.listJobs().then(function(jobs) {
 
 Create a job request to perform an analytic on a data, where `<analytic>` is
 the name of the analytic to run, `<data-id>` is the ID of the data to process,
-and any `<param>` values are set as necessary to configre the analytic:
+and any `<parameter>` values are set as necessary to configre the analytic:
 
 ```js
 let jobRequest = new voxel51.users.jobs.JobRequest('<analytic>');
 let inputPath = voxel51.users.jobs.RemoteDataPath.fromDataId('<data-id>');
 jobRequest.setInput('<input>', inputPath);
-jobRequest.setParameter('<param>', val);
+jobRequest.setParameter('<parameter>', val);
 
 console.log(jobRequest.toString());
 ```
@@ -146,29 +149,14 @@ console.log(jobRequest.toString());
 Upload a job request:
 
 ```js
-api.uploadJobRequest(jobRequest, '<job-name>');
+let metadata = api.uploadJobRequest(jobRequest, '<job-name>');
+let jobId = metadata.id;
 ```
 
 Start a job:
 
 ```js
-// ID of the job
-let jobId = 'XXXXXXXX';
-
 api.startJob(jobId);
-```
-
-Wait until a job is complete and then download its output:
-
-```js
-// Local path to which to download the output
-let outputPath = '/path/to/output.zip';
-
-api.waitUntilJobCompletes(jobId).then(function() {
-  api.downloadJobOutput(jobId, outputPath).then(function() {
-    console.log('Download complete!');
-  });
-});
 ```
 
 Get the status of a job:
