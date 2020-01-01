@@ -37,7 +37,8 @@ each of the analytics exposed on the Voxel51 Platform, see the
 [Analytics Documentation](https://voxel51.com/docs/analytics).
 
 For more information about using this client library to operate an application
-on the Voxel51 Platform, see the [Applications Quickstart](APPLICATIONS).
+on the Voxel51 Platform, see the
+[Applications Quickstart](https://github.com/voxel51/api-js/blob/develop/APPLICATIONS.md).
 
 
 ## Quickstart
