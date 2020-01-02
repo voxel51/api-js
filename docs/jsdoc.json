@@ -18,7 +18,6 @@
     "opts": {
         "template": "node_modules/jsdoc-template",
         "encoding": "utf8",
-        "recurse": true,
-        "destination": "docs/build"
+        "recurse": true
     }
 }
