@@ -1,4 +1,4 @@
-# Voxel51 Platform API JavaScript Client Library
+# Voxel51 Platform JavaScript Client Library
 
 A JavaScript client library built on [Node.js](https://nodejs.org/en) for
 the Voxel51 Platform.
