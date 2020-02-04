@@ -5,6 +5,10 @@
     "author": "Voxel51, Inc.",
     "license": "BSD-4-Clause",
     "main": "./lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/voxel51/api-js",
+    },
     "scripts": {
         "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json",
         "lint": "npx eslint 'lib/**/*.js'"

@@ -1,34 +1,21 @@
 # Voxel51 Platform JavaScript Client Library
 
-A JavaScript client library built on [Node.js](https://nodejs.org/en) for
+A JavaScript client library built on [Node](https://nodejs.org/en) for
 the Voxel51 Platform.
-
-The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
-and uses `async`/`await` to deliver Promised-based asynchronous execution.
-
-Available at [https://github.com/voxel51/api-js](https://github.com/voxel51/api-js).
 
 <img src="https://drive.google.com/uc?id=1j0S8pLsopAqF1Ik3rf-CdyAIU4kA0sOP" alt="voxel51-logo.png" width="40%"/>
 
-
 ## Installation
 
-To install the library, first clone it:
-
-```shell
-git clone https://github.com/voxel51/api-js
 ```
-
-and then run the install script:
-
-```shell
-cd api-js
-bash install.bash
+npm install @voxel51/api-js
 ```
-
 
 ## Documentation
 
+The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
+and uses `async`/`await` to deliver Promised-based asynchronous execution.
+                           
 For full documentation of the Voxel51 Platform API, including usage of this
 client library, see the [API Documentation](https://voxel51.com/docs/api).
 
@@ -268,5 +255,5 @@ browser.
 
 ## Copyright
 
-Copyright 2017-2019, Voxel51, Inc.<br>
+Copyright 2017-2020, Voxel51, Inc.<br>
 [voxel51.com](https://voxel51.com)
