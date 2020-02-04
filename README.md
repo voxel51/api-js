@@ -15,7 +15,7 @@ npm install @voxel51/api-js
 
 The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
 and uses `async`/`await` to deliver Promised-based asynchronous execution.
-                           
+
 For full documentation of the Voxel51 Platform API, including usage of this
 client library, see the [API Documentation](https://voxel51.com/docs/api).
 
