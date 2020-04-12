@@ -3,9 +3,6 @@
 A JavaScript client library built on [Node.js](https://nodejs.org/en) for
 the Voxel51 Platform.
 
-The library is implemented with [ES6-style classes](http://es6-features.org/#ClassDefinition)
-and uses `async`/`await` to deliver Promised-based asynchronous execution.
-
 Available at [https://github.com/voxel51/api-js](https://github.com/voxel51/api-js).
 
 <img src="https://user-images.githubusercontent.com/3719547/74191434-8fe4f500-4c21-11ea-8d73-555edfce0854.png" alt="voxel51-logo.png" width="40%"/>
@@ -28,6 +25,10 @@ bash install.bash
 
 
 ## Documentation
+
+This library is implemented with
+[ES6-style classes](http://es6-features.org/#ClassDefinition) and uses
+`async`/`await` to deliver Promised-based asynchronous execution.
 
 For full documentation of the Voxel51 Platform API, including usage of this
 client library, see the [API Documentation](https://voxel51.com/docs/api).
@@ -268,5 +269,5 @@ browser.
 
 ## Copyright
 
-Copyright 2017-2019, Voxel51, Inc.<br>
+Copyright 2017-2020, Voxel51, Inc.<br>
 [voxel51.com](https://voxel51.com)
